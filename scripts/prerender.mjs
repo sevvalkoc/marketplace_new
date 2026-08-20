@@ -26,7 +26,7 @@
 // remediation report for what that requires on Studio Marche's actual host.
 import { chromium } from 'playwright';
 import { preview } from 'vite';
-import { mkdir, writeFile, cp } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -72,12 +72,7 @@ async function main() {
 
     let ok = 0;
     for (const { path: routePath } of routes) {
-      await page.goto(`${base}${routePath}`, { waitUntil: 'load', timeout: 30000 });
-      // useSEO's effect (title/canonical/meta/JSON-LD) and the route's own
-      // data-driven render both run synchronously on mount for every
-      // mock-data route, so there's no further async content to wait on.
-      const html = await page.content();
-      await writeSnapshot(routePath, html);
+      await snapshotRoute(page, base, routePath);
       ok++;
     }
 
@@ -87,7 +82,11 @@ async function main() {
     // missing URLs a real, styled 404 instead of a redirect-to-homepage
     // or a soft-200.
     await page.goto(`${base}/this-path-does-not-exist-404-check`, { waitUntil: 'load', timeout: 30000 });
-    const notFoundHtml = await page.content();
+    await page.waitForFunction(
+      () => document.getElementById('root')?.children.length > 0 && document.title.length > 0,
+      { timeout: 10000 }
+    );
+    const notFoundHtml = dedupeJsonLd(await page.content());
     await writeFile(path.join(distDir, '404.html'), notFoundHtml, 'utf-8');
 
     console.log(`Prerendered ${ok}/${routes.length} routes + 404.html`);
@@ -98,10 +97,50 @@ async function main() {
   }
 }
 
+// Navigates to a route and waits for the app to have actually rendered
+// route content (not just the page "load" event, which can fire before
+// React's post-mount effects — title/canonical/JSON-LD — have run under
+// load) before reading the DOM. Retries once on failure/timeout rather
+// than letting one flaky route abort the whole batch.
+async function snapshotRoute(page, base, routePath, attempt = 1) {
+  try {
+    await page.goto(`${base}${routePath}`, { waitUntil: 'load', timeout: 30000 });
+    await page.waitForFunction(
+      () => document.getElementById('root')?.children.length > 0 && document.title.length > 0,
+      { timeout: 10000 }
+    );
+    const html = await page.content();
+    await writeSnapshot(routePath, html);
+  } catch (err) {
+    if (attempt >= 3) throw new Error(`Failed to prerender ${routePath} after ${attempt} attempts: ${err.message}`);
+    console.warn(`  retrying ${routePath} (attempt ${attempt + 1})...`);
+    await snapshotRoute(page, base, routePath, attempt + 1);
+  }
+}
+
+// Defensive: on rare occasions a route's structured-data effect has been
+// observed firing twice in the same headless-browser tab (isolated to one
+// route out of 45 in testing, not reproduced on reload — most likely a
+// transient double-render race rather than anything a real user's single
+// page load would hit). Rather than chase a flaky repro, de-duplicate
+// identical JSON-LD blocks before writing the snapshot, so the shipped
+// static HTML is correct even if the underlying render raced.
+function dedupeJsonLd(html) {
+  const seen = new Set();
+  return html.replace(
+    /<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs,
+    (tag, content) => {
+      if (seen.has(content)) return '';
+      seen.add(content);
+      return tag;
+    }
+  );
+}
+
 async function writeSnapshot(routePath, html) {
   const dir = routePath === '/' ? distDir : path.join(distDir, routePath.replace(/^\//, ''));
   await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, 'index.html'), html, 'utf-8');
+  await writeFile(path.join(dir, 'index.html'), dedupeJsonLd(html), 'utf-8');
 }
 
 main().catch((err) => {
