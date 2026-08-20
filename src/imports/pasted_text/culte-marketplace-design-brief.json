@@ -1,0 +1,267 @@
+Design and build a complete desktop-first and mobile-responsive website concept in Figma Make for a premium curated marketplace brand called CULTE.
+
+IMPORTANT BRAND RULES
+- Follow the attached brand booklet exactly in spirit and system.
+- Background must be pure white across the website.
+- Brand feel: premium, cool, bold, contemporary, curated, editorial, product-first.
+- Typography:
+  - Use Valibuk for brand logotype, major headings, navigation labels, category labels, CTA labels.
+  - Use Poppins Medium / Regular for body copy, product titles, descriptions, UI text, pricing, form labels.
+- Color palette:
+  - White #FFFFFF as the main website ground always.
+  - Deep Navy #181E51 for navigation, headers, key anchors.
+  - Burnt Orange #E17544 for CTA, highlights, active states. Use orange only once per surface.
+  - Light Blue #C2DFED for cards, soft image backgrounds, empty states, hover fills, secondary sections.
+  - Soft Peach #F19D73 for selected editorial moments only.
+  - Near-black #0F0F0F only for body text, never for logo/brand expression.
+- Overall visual direction:
+  - White-background marketplace
+  - Bold CULTE. logo in nav
+  - Open spacing
+  - Premium concept-store feeling
+  - Easy to use, innovative but not experimental to the point of confusion
+  - No dark theme, no beige ground, no clutter, no generic marketplace look
+
+PROJECT GOAL
+Create a full marketplace website UX/UI system for CULTE where:
+- buyers can browse and buy products
+- buyers can sign up and log in
+- sellers can log in through a dedicated seller portal
+- sellers can upload and manage products through a seller dashboard
+- products are organized through clear category structures
+- all components are fully designed and reusable
+- all page links and flows are complete and connected
+- all buttons, cards, fields, tabs, filters, nav items, badges, modals, and states are created as downloadable components
+- all pages should feel like one premium design system, not random screens
+
+INFORMATION ARCHITECTURE
+Create the full sitemap and all connected page flows for:
+
+1. Public Website
+- Home
+- New Arrivals
+- Shop All
+- Category Landing Pages
+- Product Detail Page
+- Brand / Seller Profile Page
+- Editorial / Journal / The Edit
+- About
+- Wishlist
+- Cart
+- Checkout
+- Search Results
+- Login / Sign Up selector
+- Buyer Account entry
+- Seller Login entry
+
+2. Buyer Experience
+- Buyer Sign Up
+- Buyer Login
+- Buyer Account Dashboard
+- Orders
+- Wishlist / Saved Items
+- Addresses
+- Payment Methods
+- Account Settings
+- Notifications
+
+3. Seller Experience
+- Dedicated Seller Login page only for sellers
+- Seller Dashboard
+- Overview / Analytics
+- Add Product
+- Product List
+- Edit Product
+- Orders
+- Inventory
+- Categories / Tags
+- Storefront / Seller Profile Editor
+- Payouts
+- Settings
+- Support / Help
+
+4. System / Utility Pages
+- 404 page
+- Empty states
+- No search results
+- Maintenance / waitlist style page if needed
+- Success / confirmation pages
+- Error states
+- Modal states
+- Dropdown / mega menu states
+
+REQUIRED UX STRUCTURE
+This must be a real marketplace, not just a homepage mockup.
+
+A. Homepage
+Design a premium homepage with:
+- bold hero section
+- curated category shortcuts
+- “The Edit” editorial section
+- featured brands / sellers
+- new arrivals product grid
+- trending categories
+- a premium marketplace trust section
+- CTA areas for both shopping and seller application/login
+- newsletter/footer section
+The homepage should feel editorial and commercial at the same time.
+
+B. Category Structure
+Include clear category navigation and landing pages.
+Create example top-level categories such as:
+- Women
+- Men
+- Home
+- Beauty
+- Objects
+- Kids
+Also include subcategory filtering logic.
+Every category page should include:
+- title banner
+- filter sidebar or top filter row
+- sorting
+- breadcrumbs
+- product count
+- product cards
+- pagination or load more
+- filter chips
+- active/inactive states
+
+C. Product Detail Page
+Include:
+- large product media gallery
+- product title
+- price
+- seller / brand name
+- category breadcrumb
+- variation selectors if needed
+- add to bag
+- save / wishlist
+- delivery info
+- description
+- specifications
+- shipping / returns
+- related products
+- more from this seller
+- trust indicators
+- mobile sticky CTA
+
+D. Seller Dashboard
+This is essential.
+Create a dedicated seller dashboard with clean UX and premium UI.
+Must include:
+- overview cards
+- analytics snapshot
+- add new product CTA
+- product upload flow
+- product table
+- inventory status
+- order management
+- payout summary
+- account and store settings
+- support/help panel
+Design product upload as a clean multi-step form:
+- product name
+- description
+- price
+- category
+- subcategory
+- tags
+- SKU
+- stock
+- media upload
+- shipping info
+- save draft / publish
+The seller experience should be simple and frictionless.
+
+E. Buyer Login and Seller Login
+Create separate login entry points:
+- buyer login / sign up
+- seller login
+Do not merge them into one confusing screen.
+The seller login should feel slightly more operational but still on-brand.
+
+DESIGN SYSTEM REQUIREMENTS
+Create all reusable components and variants:
+- header / nav desktop
+- mobile nav
+- mega menu
+- footer
+- buttons: primary, secondary, ghost, disabled, hover, active
+- inputs
+- dropdowns
+- selects
+- tabs
+- pills / chips
+- product cards
+- seller cards
+- category cards
+- badges
+- pagination
+- accordions
+- modals
+- toast notifications
+- tables
+- dashboard sidebars
+- KPI cards
+- empty states
+- breadcrumbs
+- form steps
+- upload area
+- search bar
+- filter drawer
+All components must be clearly organized and downloadable/exportable.
+
+INTERACTION REQUIREMENTS
+Ensure all page connections are complete:
+- nav items lead to real pages
+- category cards link correctly
+- product cards link to product detail pages
+- seller cards link to seller profiles
+- seller login leads to seller dashboard
+- buyer login leads to buyer account
+- CTAs are wired logically
+- breadcrumbs work
+- footer links connect
+No dead ends. No placeholder disconnected screens.
+
+VISUAL STYLE DETAILS
+- Minimal but not cold
+- Premium but still commercial
+- Spacious layouts
+- Big white areas
+- Strong typography hierarchy
+- Orange CTA moments only where needed
+- Light blue softly used behind product imagery or in cards
+- Navy should anchor the system, especially header/nav and selected structural elements
+- Product cards should feel elevated and curated, not mass-market
+- Editorial sections should feel like a concept store magazine
+- Dashboard UI should still feel consistent with the storefront brand
+
+DO NOT DO
+- no black heavy luxury aesthetic
+- no beige or cream background
+- no overcrowded ecommerce layouts
+- no random gradients
+- no generic startup SaaS visuals
+- no dark homepage
+- no low-contrast unreadable UI
+- no broken or disconnected flows
+- no missing states
+- no unstyled backend-looking dashboard
+
+OUTPUT EXPECTATION
+Create:
+1. full sitemap
+2. complete responsive page set
+3. reusable component library
+4. linked prototype flows
+5. buyer journey
+6. seller journey
+7. category browsing journey
+8. product upload journey
+9. checkout journey
+Everything should be ready as a complete clickable Figma Make website system for a premium curated marketplace brand.
+
+Final tone of the interface:
+“Cool. Bold. Premium. Platform-ready. Curated marketplace.”
