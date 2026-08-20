@@ -48,7 +48,7 @@ export const Inventory = () => {
         </div>
         <div className="flex items-center gap-3">
           <div className="border-2 border-culte-navy/10 px-5 py-2.5 text-center">
-            <p className="font-cormorant text-xl text-culte-navy">£${totalValue.toLocaleString()}</p>
+            <p className="font-cormorant text-xl text-culte-navy">£{totalValue.toLocaleString()}</p>
             <p className="text-xs text-culte-navy/30 tracking-widest mt-0.5">STOCK VALUE</p>
           </div>
         </div>

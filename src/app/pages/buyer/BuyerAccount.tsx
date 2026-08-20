@@ -108,7 +108,7 @@ export const BuyerAccount = () => {
                         }`}>
                           {order.status.toUpperCase()}
                         </span>
-                        <p className="text-sm text-culte-navy">£${order.total.toFixed(2)}</p>
+                        <p className="text-sm text-culte-navy">£{order.total.toFixed(2)}</p>
                       </div>
                     </div>
                     <div className="flex gap-3">

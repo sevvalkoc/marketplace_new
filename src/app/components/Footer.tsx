@@ -30,7 +30,7 @@ export const Footer = () => {
       heading: 'Discover',
       links: [
         { label: 'The Edit', path: '/the-edit' },
-        { label: 'Featured Brands', path: '/shop' },
+        { label: 'Featured Brands', path: '/brands' },
         { label: 'Wishlist', path: '/wishlist' },
         { label: 'New Arrivals', path: '/new-arrivals' },
       ]
@@ -39,10 +39,9 @@ export const Footer = () => {
       heading: 'Company',
       links: [
         { label: 'About Studio Marche', path: '/about' },
-        { label: 'Sustainability', path: '/about' },
+        { label: 'Our Values', path: '/about' },
         { label: 'Support', path: '/support' },
         { label: 'Shipping & Returns', path: '/support' },
-        { label: 'Privacy Policy', path: '/privacy' },
       ]
     },
     {

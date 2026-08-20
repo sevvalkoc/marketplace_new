@@ -1,12 +1,20 @@
 import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { mockEditArticles, mockProducts } from '../data/mockData';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO, SITE_URL } from '../lib/useSEO';
 
 export const TheEdit = () => {
-  usePageMeta({
-    title: 'The Edit | Studio Marche',
+  useSEO({
+    title: 'The Edit — Studio Marche | Stories from Independent Makers',
     description: 'Stories from the studios, fields, and workshops behind the brands on Studio Marche — interviews, essays, and product deep-dives.',
+    path: '/the-edit',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'The Edit',
+      url: `${SITE_URL}/the-edit`,
+      isPartOf: { '@type': 'WebSite', name: 'Studio Marche', url: SITE_URL },
+    },
   });
 
   const heroArticle = mockEditArticles[0];
@@ -107,7 +115,7 @@ export const TheEdit = () => {
                 </div>
                 <p className="text-xs text-culte-navy/40 tracking-wider">{product.seller}</p>
                 <p className="text-sm text-culte-black group-hover:text-culte-orange transition-colors mt-0.5">{product.name}</p>
-                <p className="text-sm text-culte-navy">£${product.price}</p>
+                <p className="text-sm text-culte-navy">£{product.price}</p>
               </Link>
             ))}
           </div>

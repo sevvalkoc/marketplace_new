@@ -2,15 +2,20 @@ import { useSearchParams, Link } from 'react-router';
 import { Search, ArrowRight } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { mockProducts, mockSellers, mockCategories } from '../data/mockData';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO } from '../lib/useSEO';
 
 export const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
 
-  usePageMeta({
+  // Search results are user-generated, unbounded-query pages with no stable
+  // content — always noindex so they never compete with or duplicate the
+  // category/brand/product pages they surface.
+  useSEO({
     title: query ? `"${query}" | Search | Studio Marche` : 'Search | Studio Marche',
     description: 'Search Studio Marche for products, brands, and categories from independent makers.',
+    path: '/search',
+    noindex: true,
   });
 
   const productResults = mockProducts.filter(p =>

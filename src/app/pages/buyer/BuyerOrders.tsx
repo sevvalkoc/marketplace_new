@@ -81,7 +81,7 @@ export const BuyerOrders = () => {
                         </div>
                         <div>
                           <span className="text-xs text-culte-navy/40 tracking-widest">TOTAL</span>
-                          <p className="text-sm text-culte-navy">£${order.total.toFixed(2)}</p>
+                          <p className="text-sm text-culte-navy">£{order.total.toFixed(2)}</p>
                         </div>
                         <div className="flex items-center gap-3">
                           <span className={`text-xs px-3 py-1.5 flex items-center gap-1.5 ${statusConfig[order.status]?.bg} ${statusConfig[order.status]?.text}`}>
@@ -105,7 +105,7 @@ export const BuyerOrders = () => {
                               <p className="text-sm text-culte-black">{item.name}</p>
                               <p className="text-xs text-culte-black/40 mt-0.5">Qty: {item.qty}</p>
                             </div>
-                            <p className="text-sm text-culte-navy">£${item.price.toFixed(2)}</p>
+                            <p className="text-sm text-culte-navy">£{item.price.toFixed(2)}</p>
                           </div>
                         ))}
                       </div>

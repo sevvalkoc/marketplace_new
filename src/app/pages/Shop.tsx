@@ -4,7 +4,7 @@ import { mockProducts } from '../data/mockData';
 import { X, SlidersHorizontal, LayoutGrid, List, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router';
 import { useCart } from '../context/CartContext';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO } from '../lib/useSEO';
 
 const categories = ['Women', 'Men', 'Home', 'Beauty', 'Objects', 'Kids'];
 const priceRanges = [
@@ -23,9 +23,10 @@ const sortOptions = [
 const sellers = ['Studio Clay', 'Essential Threads', 'Craft & Co.', 'Pure Botanics', 'Atelier Rose', 'Northern Knit'];
 
 export const Shop = () => {
-  usePageMeta({
+  useSEO({
     title: 'Shop All | Studio Marche',
     description: 'Browse the full Studio Marche collection — considered pieces from independent brands across home, fashion, beauty, and more.',
+    path: '/shop',
   });
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -322,7 +323,7 @@ export const Shop = () => {
                         </div>
                         <div className="flex items-center justify-between mt-4">
                           <div>
-                            <p className="text-culte-navy">£${product.price.toFixed(2)}</p>
+                            <p className="text-culte-navy">£{product.price.toFixed(2)}</p>
                             {product.isNew && (
                               <span className="inline-block mt-1 bg-culte-orange text-white text-xs px-2 py-0.5">NEW</span>
                             )}

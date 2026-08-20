@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 import { Layout } from './layout/Layout';
 import { SellerLayout } from './layout/SellerLayout';
 
@@ -9,6 +9,7 @@ import { NewArrivals } from './pages/NewArrivals';
 import { CategoryPage } from './pages/CategoryPage';
 import { ProductDetail } from './pages/ProductDetail';
 import { SellerProfile } from './pages/SellerProfile';
+import { BrandDirectory } from './pages/BrandDirectory';
 import { TheEdit } from './pages/TheEdit';
 import { TheEditArticle } from './pages/TheEditArticle';
 import { About } from './pages/About';
@@ -40,6 +41,8 @@ import { Payouts } from './pages/seller/Payouts';
 import { SellerSettings } from './pages/seller/SellerSettings';
 import { SellerSupport } from './pages/seller/SellerSupport';
 
+const HomeLivingRedirect = () => Navigate({ to: '/category/home', replace: true });
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -49,8 +52,15 @@ export const router = createBrowserRouter([
       { path: 'shop', Component: Shop },
       { path: 'new-arrivals', Component: NewArrivals },
       { path: 'category/:category', Component: CategoryPage },
+      // Legacy slug seen in earlier navigation/indexed URLs — client-side
+      // redirect so any inbound links or cached search results still land
+      // on the one canonical Home & Living address. Hosting config (see
+      // vercel.json / netlify.toml) also 301s this at the server level,
+      // which is what search engines actually consolidate signals on.
+      { path: 'category/home-living', Component: HomeLivingRedirect },
       { path: 'product/:id', Component: ProductDetail },
       { path: 'seller/:slug', Component: SellerProfile },
+      { path: 'brands', Component: BrandDirectory },
       { path: 'the-edit', Component: TheEdit },
       { path: 'the-edit/:id', Component: TheEditArticle },
       { path: 'about', Component: About },

@@ -103,7 +103,7 @@ export const SellerOrders = () => {
                   <p className="text-xs text-culte-black/40 mt-0.5">{order.customer} · {order.date}</p>
                 </div>
                 <div className="text-right flex-shrink-0 hidden sm:block">
-                  <p className="font-valibuk text-sm text-culte-navy">£${order.amount.toFixed(2)}</p>
+                  <p className="font-valibuk text-sm text-culte-navy">£{order.amount.toFixed(2)}</p>
                   <p className="text-xs text-culte-black/40">Qty: {order.qty}</p>
                 </div>
                 <div className="flex-shrink-0 text-culte-navy/30">

@@ -111,8 +111,8 @@ export const FlashDeals = () => {
                   <p className="text-sm text-culte-black hover:text-culte-orange transition-colors leading-tight line-clamp-2">{deal.name}</p>
                 </Link>
                 <div className="flex items-baseline gap-2 mt-2">
-                  <span className="text-culte-navy">£${deal.price.toFixed(2)}</span>
-                  <span className="text-xs text-culte-black/30 line-through">£${deal.originalPrice.toFixed(2)}</span>
+                  <span className="text-culte-navy">£{deal.price.toFixed(2)}</span>
+                  <span className="text-xs text-culte-black/30 line-through">£{deal.originalPrice.toFixed(2)}</span>
                 </div>
                 <button
                   onClick={() => addToCart({ id: deal.id, name: deal.name, price: deal.price, seller: deal.seller, sellerSlug: deal.sellerSlug, image: deal.image })}

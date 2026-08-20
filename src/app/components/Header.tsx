@@ -130,7 +130,7 @@ export const Header = () => {
     { name: 'KIDS', path: '/category/kids', mega: null },
     { name: 'HOME', path: '/category/home', mega: 'home' },
     { name: 'BEAUTY', path: '/category/beauty', mega: 'beauty' },
-    { name: 'BRANDS', path: '/shop', mega: null },
+    { name: 'BRANDS', path: '/brands', mega: null },
     { name: 'THE EDIT', path: '/the-edit', mega: null },
   ];
 
@@ -360,7 +360,7 @@ export const Header = () => {
                   <li><Link to="/seller/craft-co" className="text-black/60 hover:text-black transition-colors block" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem' }}>Craft & Co.</Link></li>
                   <li className="pt-2">
                     <Link
-                      to="/shop"
+                      to="/brands"
                       className="text-black flex items-center gap-1.5 hover:gap-2.5 transition-all"
                       style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
                     >

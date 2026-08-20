@@ -7,12 +7,13 @@ import { BrandStrip } from '../components/BrandStrip';
 import { HeroSlider } from '../components/HeroSlider';
 import { NewBrandsSlider } from '../components/NewBrandsSlider';
 import { mockProducts, mockSellers, mockEditArticles } from '../data/mockData';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO } from '../lib/useSEO';
 
 export const Home = () => {
-  usePageMeta({
+  useSEO({
     title: 'Studio Marche | A Curated Marketplace for Independent Brands',
     description: 'Discover thoughtfully made products from independent brands and emerging designers. Every piece on Studio Marche is chosen by hand, never by algorithm.',
+    path: '/',
   });
 
   const thisWeek = mockProducts.filter(p => p.isFeatured).slice(0, 4);
@@ -141,7 +142,7 @@ export const Home = () => {
                     </div>
                     <p className="text-black/35 mb-0.5" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{product.seller}</p>
                     <p className="text-black/70 group-hover:text-black transition-colors" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.82rem' }}>{product.name}</p>
-                    <p className="text-black mt-0.5" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.82rem' }}>£${product.price}</p>
+                    <p className="text-black mt-0.5" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.82rem' }}>£{product.price}</p>
                   </Link>
                 ))}
               </div>
@@ -330,7 +331,7 @@ export const Home = () => {
                       className="text-black/30 uppercase"
                       style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.65rem', letterSpacing: '0.15em' }}
                     >
-                      {seller.productCount} pieces
+                      {mockProducts.filter(p => p.sellerSlug === seller.slug).length} pieces
                     </p>
                   </div>
                 </div>

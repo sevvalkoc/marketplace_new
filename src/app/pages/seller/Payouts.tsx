@@ -52,7 +52,7 @@ export const Payouts = () => {
         <div className="bg-culte-orange text-white p-8">
           <DollarSign className="w-7 h-7 mb-4 opacity-80" />
           <p className="text-xs tracking-widest opacity-70 mb-2">PENDING BALANCE</p>
-          <p className="font-cormorant text-4xl">£${pendingBalance.toFixed(2)}</p>
+          <p className="font-cormorant text-4xl">£{pendingBalance.toFixed(2)}</p>
           <p className="text-sm opacity-70 mt-2 flex items-center gap-1">
             <span>Next payout: {nextPayoutDate}</span>
           </p>
@@ -60,7 +60,7 @@ export const Payouts = () => {
         <div className="bg-culte-navy text-white p-8">
           <TrendingUp className="w-7 h-7 mb-4 opacity-80" />
           <p className="text-xs tracking-widest opacity-70 mb-2">TOTAL EARNINGS</p>
-          <p className="font-cormorant text-4xl">£${totalEarnings.toLocaleString()}</p>
+          <p className="font-cormorant text-4xl">£{totalEarnings.toLocaleString()}</p>
           <p className="text-sm opacity-50 mt-2">All time since joining</p>
         </div>
         <div className="bg-culte-light-blue p-8">
@@ -94,7 +94,7 @@ export const Payouts = () => {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(24,30,81,0.06)" />
               <XAxis dataKey="month" tick={{ fontSize: 11, fontFamily: 'Inter', fill: '#181E51', opacity: 0.5 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: '#181E51', opacity: 0.5 }} axisLine={false} tickLine={false} tickFormatter={v => `£${(v/1000).toFixed(0)}k`} />
+              <YAxis tick={{ fontSize: 11, fill: '#181E51', opacity: 0.5 }} axisLine={false} tickLine={false} tickFormatter={v => `£{(v/1000).toFixed(0)}k`} />
               <Tooltip content={<CustomTooltip />} />
               <Area type="monotone" dataKey="payout" name="Your Payout" stroke="#E17544" strokeWidth={2.5} fill="url(#payoutGradient)" />
               <Area type="monotone" dataKey="commission" name="Commission" stroke="#C2DFED" strokeWidth={2} fill="url(#commGradient)" />
@@ -134,7 +134,7 @@ export const Payouts = () => {
                   <td className="px-6 py-4 text-xs text-culte-navy">{payout.id}</td>
                   <td className="px-6 py-4 text-sm text-culte-black">{payout.date}</td>
                   <td className="px-6 py-4 text-sm text-culte-black/50 hidden md:table-cell">{payout.orders} orders</td>
-                  <td className="px-6 py-4 text-sm text-culte-navy">£${payout.amount.toLocaleString()}</td>
+                  <td className="px-6 py-4 text-sm text-culte-navy">£{payout.amount.toLocaleString()}</td>
                   <td className="px-6 py-4">
                     <span className="inline-block px-3 py-1 text-xs bg-green-50 text-green-700">PAID</span>
                   </td>

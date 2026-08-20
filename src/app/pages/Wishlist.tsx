@@ -4,8 +4,10 @@ import { Button } from '../components/Button';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 import { mockProducts } from '../data/mockData';
+import { useSEO } from '../lib/useSEO';
 
 export const Wishlist = () => {
+  useSEO({ title: 'Your Wishlist | Studio Marche', path: '/wishlist', noindex: true });
   const { items, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
 
@@ -64,7 +66,7 @@ export const Wishlist = () => {
                 <Link to={`/product/${product.id}`}>
                   <h3 className="text-sm text-culte-black hover:text-culte-orange transition-colors">{product.name}</h3>
                 </Link>
-                <p className="text-sm text-culte-navy">£${product.price.toFixed(2)}</p>
+                <p className="text-sm text-culte-navy">£{product.price.toFixed(2)}</p>
               </div>
               <button
                 onClick={() => handleAddToBag(product)}
@@ -93,7 +95,7 @@ export const Wishlist = () => {
                   </div>
                   <p className="text-xs text-culte-navy/40 tracking-wider">{p.seller}</p>
                   <p className="text-sm text-culte-black group-hover:text-culte-orange transition-colors mt-0.5">{p.name}</p>
-                  <p className="text-sm text-culte-navy mt-0.5">£${p.price.toFixed(2)}</p>
+                  <p className="text-sm text-culte-navy mt-0.5">£{p.price.toFixed(2)}</p>
                 </Link>
               ))}
             </div>

@@ -199,9 +199,9 @@ export const EditProduct = () => {
             </div>
             {form.price && (
               <div className="p-4 bg-culte-light-blue text-xs text-culte-navy space-y-1">
-                <p>Selling price: <strong>£${parseFloat(form.price).toFixed(2)}</strong></p>
-                <p>Studio Marche commission (12%): <strong>£${(parseFloat(form.price) * 0.12).toFixed(2)}</strong></p>
-                <p className="text-culte-orange">Your payout: <strong>£${(parseFloat(form.price) * 0.88).toFixed(2)}</strong></p>
+                <p>Selling price: <strong>£{parseFloat(form.price).toFixed(2)}</strong></p>
+                <p>Studio Marche commission (12%): <strong>£{(parseFloat(form.price) * 0.12).toFixed(2)}</strong></p>
+                <p className="text-culte-orange">Your payout: <strong>£{(parseFloat(form.price) * 0.88).toFixed(2)}</strong></p>
               </div>
             )}
           </div>

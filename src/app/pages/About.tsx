@@ -1,12 +1,13 @@
 import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../components/Button';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO } from '../lib/useSEO';
 
 export const About = () => {
-  usePageMeta({
-    title: 'About | Studio Marche',
+  useSEO({
+    title: 'About Studio Marche | Independent Brands, Chosen Carefully',
     description: 'Studio Marche is a curated marketplace built on the belief that less, chosen carefully, beats more chosen carelessly. Read our story.',
+    path: '/about',
   });
 
   const values = [

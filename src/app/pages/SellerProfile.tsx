@@ -5,18 +5,40 @@ import { ProductCard } from '../components/ProductCard';
 import { ComingSoon } from '../components/ComingSoon';
 import { mockSellers, mockProducts } from '../data/mockData';
 import { useShopifyProducts } from '../lib/shopify';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO, SITE_URL } from '../lib/useSEO';
 
 export const SellerProfile = () => {
   const { slug } = useParams();
   const seller = mockSellers.find(s => s.slug === slug) || mockSellers[0];
 
-  usePageMeta({
-    title: `${seller.name} | Studio Marche`,
-    description: seller.description,
-  });
-
   const manualProducts = mockProducts.filter(p => p.sellerSlug === seller.slug);
+  const realProductCount = manualProducts.length;
+
+  useSEO({
+    title: `${seller.name} | Independent Brand | Studio Marche`,
+    description: seller.bio.length > 155 ? `${seller.bio.slice(0, 152)}...` : seller.bio,
+    path: `/seller/${seller.slug}`,
+    image: seller.image,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Brand',
+        name: seller.name,
+        description: seller.bio,
+        url: `${SITE_URL}/seller/${seller.slug}`,
+        image: seller.image,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+          { '@type': 'ListItem', position: 2, name: 'Brands', item: SITE_URL + '/brands' },
+          { '@type': 'ListItem', position: 3, name: seller.name, item: `${SITE_URL}/seller/${seller.slug}` },
+        ],
+      },
+    ],
+  });
 
   const primaryCategory = (seller.categories[0] || 'objects').toLowerCase();
   const shopify = useShopifyProducts(seller.slug, primaryCategory);
@@ -68,7 +90,7 @@ export const SellerProfile = () => {
           </div>
           <div className="flex items-center gap-2 text-culte-black/60">
             <Package className="w-4 h-4 text-culte-navy" />
-            <span className="text-sm">{seller.productCount} Products</span>
+            <span className="text-sm">{realProductCount} Products</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="flex">
@@ -117,7 +139,7 @@ export const SellerProfile = () => {
                 <h3 className="text-xs text-culte-navy tracking-widest">BRAND NOTES</h3>
                 <div className="space-y-3 text-sm text-culte-black/70">
                   <p>✦ Ships worldwide from {seller.location}</p>
-                  <p>✦ {seller.productCount} curated products</p>
+                  <p>✦ {realProductCount} curated products</p>
                   <p>✦ {seller.rating} star rating from {seller.reviewCount}+ buyers</p>
                   <p>✦ Verified Studio Marche maker since 2023</p>
                 </div>

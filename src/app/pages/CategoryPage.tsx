@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { SlidersHorizontal, X, ArrowRight } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { ComingSoon } from '../components/ComingSoon';
-import { mockProducts, mockCategories } from '../data/mockData';
-import { usePageMeta } from '../lib/usePageMeta';
+import { mockProducts, mockCategories, mockEditArticles } from '../data/mockData';
+import { useSEO, SITE_URL } from '../lib/useSEO';
 
 const sortOptions = [
   { value: 'featured', label: 'Featured' },
@@ -58,19 +58,50 @@ export const CategoryPage = () => {
     image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&h=600&fit=crop',
   };
 
-  usePageMeta({
-    title: `${hero.headline} | Studio Marche`,
-    description: hero.sub,
-  });
-
   let products = mockProducts.filter(p => p.category === category);
   const isEmpty = products.length === 0;
+
+  useSEO({
+    title: `${hero.headline} | Independent Brands | Studio Marche`,
+    description: hero.sub,
+    path: `/category/${category}`,
+    image: hero.image,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+          { '@type': 'ListItem', position: 2, name: hero.headline, item: `${SITE_URL}/category/${category}` },
+        ],
+      },
+      ...(products.length > 0 ? [{
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        itemListElement: products.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: `${SITE_URL}/product/${p.id}`,
+        })),
+      }] : []),
+    ],
+  });
 
   if (sort === 'price-asc') products = [...products].sort((a, b) => a.price - b.price);
   if (sort === 'price-desc') products = [...products].sort((a, b) => b.price - a.price);
   if (sort === 'newest') products = [...products].sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
 
   const otherCategories = mockCategories.filter(c => c.slug !== category).slice(0, 4);
+
+  // Surface Edit stories relevant to this category — either written about it
+  // directly, or featuring products that live in it — so readers (and
+  // crawlers) have a real editorial path into and out of every category.
+  const relatedArticles = mockEditArticles
+    .filter(a =>
+      a.category.toLowerCase() === category ||
+      (a.products || []).some(pid => products.some(p => p.id === pid))
+    )
+    .slice(0, 2);
 
   return (
     <div className="bg-white min-h-screen">
@@ -164,6 +195,26 @@ export const CategoryPage = () => {
             {products.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
+          </div>
+        )}
+
+        {/* Related editorial */}
+        {relatedArticles.length > 0 && (
+          <div className="border-t-2 border-culte-navy/10 pt-16 pb-4">
+            <h2 className="font-cormorant text-2xl text-culte-navy mb-8">FROM THE EDIT</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {relatedArticles.map(article => (
+                <Link key={article.id} to={`/the-edit/${article.id}`} className="group flex gap-4 items-center">
+                  <div className="w-24 h-24 flex-shrink-0 overflow-hidden bg-culte-light-blue">
+                    <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-culte-orange tracking-widest mb-1">{article.category}</p>
+                    <h3 className="font-cormorant text-lg text-culte-navy group-hover:text-culte-orange transition-colors leading-tight">{article.title}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
 

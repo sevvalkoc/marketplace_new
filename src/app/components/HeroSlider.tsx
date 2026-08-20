@@ -35,6 +35,13 @@ export const HeroSlider = () => {
               <img
                 src={panel.image}
                 alt={panel.eyebrow}
+                // Both panels sit in the viewport on load, but the first is
+                // the LCP candidate on most breakpoints — load it eagerly
+                // and flag it as high priority rather than leaving fetch
+                // priority to the browser's default guess.
+                loading="eager"
+                fetchPriority={panel.id === 1 ? 'high' : 'auto'}
+                decoding="async"
                 className="w-full h-full object-cover"
                 style={{ objectPosition: panel.imagePosition }}
               />

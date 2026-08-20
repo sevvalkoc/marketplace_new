@@ -103,7 +103,7 @@ export const ProductList = () => {
                   </div>
                 </td>
                 <td className="px-5 py-4 font-valibuk text-xs text-culte-navy/40 hidden lg:table-cell">{product.sku}</td>
-                <td className="px-5 py-4 font-valibuk text-sm text-culte-navy">£${product.price.toFixed(2)}</td>
+                <td className="px-5 py-4 font-valibuk text-sm text-culte-navy">£{product.price.toFixed(2)}</td>
                 <td className="px-5 py-4">
                   <span className={`text-sm font-valibuk ${product.stock === 0 ? 'text-red-500' : product.stock <= 5 ? 'text-yellow-600' : 'text-culte-black'}`}>
                     {product.stock}

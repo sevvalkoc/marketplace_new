@@ -3,8 +3,10 @@ import { X, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
 import { Button } from '../components/Button';
 import { useCart } from '../context/CartContext';
 import { mockProducts } from '../data/mockData';
+import { useSEO } from '../lib/useSEO';
 
 export const Cart = () => {
+  useSEO({ title: 'Your Bag | Studio Marche', path: '/cart', noindex: true });
   const { items, removeFromCart, updateQuantity, subtotal } = useCart();
 
   const shipping = subtotal >= 150 ? 0 : 12;
@@ -35,7 +37,7 @@ export const Cart = () => {
                 </div>
                 <p className="text-xs text-culte-navy/40 tracking-wider">{p.seller}</p>
                 <p className="text-sm text-culte-black group-hover:text-culte-orange transition-colors mt-0.5">{p.name}</p>
-                <p className="text-sm text-culte-navy mt-0.5">£${p.price.toFixed(2)}</p>
+                <p className="text-sm text-culte-navy mt-0.5">£{p.price.toFixed(2)}</p>
               </Link>
             ))}
           </div>
@@ -104,7 +106,7 @@ export const Cart = () => {
                       </div>
 
                       {/* Price */}
-                      <p className="font-cormorant text-lg text-culte-navy">£${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-cormorant text-lg text-culte-navy">£{(item.price * item.quantity).toFixed(2)}</p>
                     </div>
                   </div>
                 </div>
@@ -125,12 +127,12 @@ export const Cart = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-culte-black">
                   <span>Subtotal</span>
-                  <span>£${subtotal.toFixed(2)}</span>
+                  <span>£{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-culte-black">
                   <span>Shipping</span>
                   <span className={shipping === 0 ? 'text-culte-orange text-xs' : ''}>
-                    {shipping === 0 ? 'FREE' : `£${shipping.toFixed(2)}`}
+                    {shipping === 0 ? 'FREE' : `£{shipping.toFixed(2)}`}
                   </span>
                 </div>
                 {shipping > 0 && (
@@ -142,7 +144,7 @@ export const Cart = () => {
 
               <div className="border-t-2 border-culte-navy/15 mt-6 pt-6 flex justify-between">
                 <span className="text-sm text-culte-navy">TOTAL</span>
-                <span className="font-cormorant text-xl text-culte-navy">£${total.toFixed(2)}</span>
+                <span className="font-cormorant text-xl text-culte-navy">£{total.toFixed(2)}</span>
               </div>
 
               {/* Promo code */}

@@ -10,7 +10,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
       <div className="bg-culte-navy text-white px-4 py-3 text-xs font-valibuk space-y-1">
         <p className="text-culte-orange mb-1">{label}</p>
         {payload.map((entry: any) => (
-          <p key={entry.name}>{entry.name.toUpperCase()}: {entry.name === 'revenue' ? `£${entry.value.toLocaleString()}` : entry.value}</p>
+          <p key={entry.name}>{entry.name.toUpperCase()}: {entry.name === 'revenue' ? `£{entry.value.toLocaleString()}` : entry.value}</p>
         ))}
       </div>
     );
@@ -107,7 +107,7 @@ export const SellerDashboard = () => {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(24,30,81,0.06)" vertical={false} />
               <XAxis dataKey="month" tick={{ fontSize: 11, fontFamily: 'Valibuk', fill: '#181E51', opacity: 0.4 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: '#181E51', opacity: 0.4 }} axisLine={false} tickLine={false} tickFormatter={v => `£${(v/1000).toFixed(0)}k`} />
+              <YAxis tick={{ fontSize: 11, fill: '#181E51', opacity: 0.4 }} axisLine={false} tickLine={false} tickFormatter={v => `£{(v/1000).toFixed(0)}k`} />
               <Tooltip content={<CustomTooltip />} />
               <Area type="monotone" dataKey="revenue" name="revenue" stroke="#181E51" strokeWidth={2.5} fill="url(#revenueGrad)" dot={{ fill: '#E17544', r: 4, strokeWidth: 0 }} activeDot={{ r: 5, fill: '#E17544' }} />
             </AreaChart>
@@ -144,7 +144,7 @@ export const SellerDashboard = () => {
                     </td>
                     <td className="px-5 py-4 text-sm text-culte-black hidden md:table-cell">{order.product}</td>
                     <td className="px-5 py-4 text-xs text-culte-black/40 hidden lg:table-cell">{order.date}</td>
-                    <td className="px-5 py-4 font-valibuk text-sm text-culte-navy">£${order.amount.toFixed(2)}</td>
+                    <td className="px-5 py-4 font-valibuk text-sm text-culte-navy">£{order.amount.toFixed(2)}</td>
                     <td className="px-5 py-4">
                       <span className={`inline-block px-2.5 py-1 font-valibuk text-xs ${statusConfig[order.status]?.bg} ${statusConfig[order.status]?.text}`}>
                         {order.status.toUpperCase()}
@@ -177,7 +177,7 @@ export const SellerDashboard = () => {
                     <p className="text-xs text-culte-black truncate">{product.name}</p>
                     <p className="font-valibuk text-xs text-culte-navy/40 mt-0.5">{product.sold} sold</p>
                   </div>
-                  <p className="font-valibuk text-xs text-culte-navy flex-shrink-0">£${product.revenue.toLocaleString()}</p>
+                  <p className="font-valibuk text-xs text-culte-navy flex-shrink-0">£{product.revenue.toLocaleString()}</p>
                 </div>
               ))}
             </div>

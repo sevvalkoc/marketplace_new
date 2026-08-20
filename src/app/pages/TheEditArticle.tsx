@@ -1,8 +1,24 @@
 import { useParams, Link } from 'react-router';
 import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react';
-import { mockEditArticles, mockProducts } from '../data/mockData';
+import { mockEditArticles, mockProducts, mockCategories } from '../data/mockData';
 import { useCart } from '../context/CartContext';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO, SITE_URL } from '../lib/useSEO';
+
+const MONTHS: Record<string, string> = {
+  january: '01', february: '02', march: '03', april: '04', may: '05', june: '06',
+  july: '07', august: '08', september: '09', october: '10', november: '11', december: '12',
+};
+
+/** Normalises the article's existing "Month YYYY" display date to ISO-8601 for
+ * structured data. The data model only stores month + year, so the day is not
+ * fabricated data — it is fixed at 01 as the earliest reasonable point in the
+ * stated month, and no dateModified is emitted since nothing tracks that. */
+function toISODate(display: string): string | undefined {
+  const [monthName, year] = display.trim().split(/\s+/);
+  const month = MONTHS[monthName?.toLowerCase()];
+  if (!month || !year) return undefined;
+  return `${year}-${month}-01`;
+}
 
 export const TheEditArticle = () => {
   const { id } = useParams();
@@ -11,10 +27,38 @@ export const TheEditArticle = () => {
   const featuredProducts = (article.products || [])
     .map(pid => mockProducts.find(p => p.id === pid))
     .filter(Boolean) as typeof mockProducts;
+  const relatedCategory = mockCategories.find(
+    c => c.name.toLowerCase() === article.category.toLowerCase()
+  );
+  const isoDate = toISODate(article.date);
 
-  usePageMeta({
-    title: `${article.title} | The Edit | Studio Marche`,
+  useSEO({
+    title: `${article.title} | The Edit — Studio Marche`,
     description: article.subtitle,
+    path: `/the-edit/${article.id}`,
+    image: article.image,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        description: article.subtitle,
+        image: [article.image],
+        ...(isoDate ? { datePublished: isoDate } : {}),
+        author: { '@type': 'Organization', name: 'Studio Marche Editorial Team' },
+        publisher: { '@type': 'Organization', name: 'Studio Marche' },
+        mainEntityOfPage: `${SITE_URL}/the-edit/${article.id}`,
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+          { '@type': 'ListItem', position: 2, name: 'The Edit', item: SITE_URL + '/the-edit' },
+          { '@type': 'ListItem', position: 3, name: article.title, item: `${SITE_URL}/the-edit/${article.id}` },
+        ],
+      },
+    ],
   });
 
   const { addToCart } = useCart();
@@ -104,8 +148,11 @@ export const TheEditArticle = () => {
                 <p className="font-valibuk text-xs text-culte-orange tracking-[0.3em] mb-2">FROM THIS STORY</p>
                 <h2 className="font-valibuk text-3xl text-culte-navy">SHOP THE EDIT</h2>
               </div>
-              <Link to="/shop" className="font-valibuk text-xs text-culte-navy hover:text-culte-orange transition-colors tracking-widest flex items-center gap-2 hidden md:flex">
-                SHOP ALL <ArrowRight className="w-3 h-3" />
+              <Link
+                to={relatedCategory ? `/category/${relatedCategory.slug}` : '/shop'}
+                className="font-valibuk text-xs text-culte-navy hover:text-culte-orange transition-colors tracking-widest flex items-center gap-2 hidden md:flex"
+              >
+                {relatedCategory ? `SHOP ${relatedCategory.name}` : 'SHOP ALL'} <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
@@ -126,11 +173,13 @@ export const TheEditArticle = () => {
                     </div>
                   </Link>
                   <div className="space-y-1 mb-3">
-                    <p className="font-valibuk text-xs text-culte-navy/40 tracking-wider">{product.seller}</p>
+                    <Link to={`/seller/${product.sellerSlug}`}>
+                      <p className="font-valibuk text-xs text-culte-navy/40 tracking-wider hover:text-culte-orange transition-colors">{product.seller}</p>
+                    </Link>
                     <Link to={`/product/${product.id}`}>
                       <h3 className="text-sm text-culte-black hover:text-culte-orange transition-colors">{product.name}</h3>
                     </Link>
-                    <p className="text-sm text-culte-navy">£${product.price.toFixed(2)}</p>
+                    <p className="text-sm text-culte-navy">£{product.price.toFixed(2)}</p>
                   </div>
                   <button
                     onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, seller: product.seller, sellerSlug: product.sellerSlug, image: product.image })}

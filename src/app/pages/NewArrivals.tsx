@@ -3,12 +3,13 @@ import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { mockProducts, mockCategories } from '../data/mockData';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO } from '../lib/useSEO';
 
 export const NewArrivals = () => {
-  usePageMeta({
+  useSEO({
     title: 'New Arrivals | Studio Marche',
     description: 'The latest additions to Studio Marche, hand-selected from independent makers across home, fashion, beauty, and more.',
+    path: '/new-arrivals',
   });
 
   const [activeCategory, setActiveCategory] = useState<string | null>(null);

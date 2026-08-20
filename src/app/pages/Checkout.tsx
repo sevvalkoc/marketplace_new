@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router';
 import { ChevronDown, Lock, Check, ShoppingBag } from 'lucide-react';
 import { Button } from '../components/Button';
 import { useCart } from '../context/CartContext';
+import { useSEO } from '../lib/useSEO';
 
 export const Checkout = () => {
+  useSEO({ title: 'Checkout | Studio Marche', path: '/checkout', noindex: true });
   const { items, subtotal, clearCart } = useCart();
   const navigate = useNavigate();
 
@@ -220,7 +222,7 @@ export const Checkout = () => {
                         </div>
                       </div>
                       <span className="text-sm text-culte-navy">
-                        {method.price === 0 ? <span className="text-culte-orange">FREE</span> : `£${method.price}`}
+                        {method.price === 0 ? <span className="text-culte-orange">FREE</span> : `£{method.price}`}
                       </span>
                       <input type="radio" name="shipping" className="hidden" checked={shippingMethod === method.id} onChange={() => setShippingMethod(method.id)} />
                     </label>
@@ -305,23 +307,23 @@ export const Checkout = () => {
                       <p className="text-sm text-culte-black leading-tight">{item.name}</p>
                       {item.size && <p className="text-xs text-culte-black/40 mt-0.5">Size: {item.size}</p>}
                     </div>
-                    <p className="text-sm text-culte-navy flex-shrink-0">£${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="text-sm text-culte-navy flex-shrink-0">£{(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                 ))}
               </div>
 
               <div className="border-t border-culte-navy/15 pt-5 space-y-3 text-sm">
                 <div className="flex justify-between text-culte-black">
-                  <span>Subtotal</span><span>£${subtotal.toFixed(2)}</span>
+                  <span>Subtotal</span><span>£{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-culte-black">
                   <span>Shipping</span>
                   <span className={shippingCost === 0 ? 'text-culte-orange text-xs' : ''}>
-                    {shippingCost === 0 ? 'FREE' : `£${shippingCost.toFixed(2)}`}
+                    {shippingCost === 0 ? 'FREE' : `£{shippingCost.toFixed(2)}`}
                   </span>
                 </div>
                 <div className="flex justify-between text-culte-navy border-t border-culte-navy/15 pt-3 mt-3">
-                  <span>TOTAL</span><span className="text-lg">£${total.toFixed(2)}</span>
+                  <span>TOTAL</span><span className="text-lg">£{total.toFixed(2)}</span>
                 </div>
               </div>
 

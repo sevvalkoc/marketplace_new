@@ -6,7 +6,7 @@ import { ProductCard } from '../components/ProductCard';
 import { mockProducts, mockSellers, mockReviews } from '../data/mockData';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO, SITE_URL } from '../lib/useSEO';
 
 const clothingCategories = ['women', 'men', 'kids'];
 const sizes = { women: ['XS', 'S', 'M', 'L', 'XL'], men: ['S', 'M', 'L', 'XL', 'XXL'], kids: ['2Y', '4Y', '6Y', '8Y', '10Y'] };
@@ -17,14 +17,61 @@ export const ProductDetail = () => {
   const seller = mockSellers.find(s => s.slug === product.sellerSlug) || mockSellers[0];
   const related = mockProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
   const reviews = mockReviews.filter(r => r.productId === product.id);
-  const avgRating = reviews.length > 0
+  // Only products with real, product-specific entries in mockReviews have a
+  // genuine rating. Everything else falls back to a generic on-screen "4.8
+  // (42 reviews)" placeholder for display — that figure is not tied to this
+  // product and must never be reported to search engines as if it were.
+  const hasRealReviews = reviews.length > 0;
+  const avgRating = hasRealReviews
     ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length
     : 4.8;
-  const totalReviews = reviews.length > 0 ? reviews.length : 42;
+  const totalReviews = hasRealReviews ? reviews.length : 42;
 
-  usePageMeta({
+  useSEO({
     title: `${product.name} by ${product.seller} | Studio Marche`,
     description: product.description.length > 155 ? `${product.description.slice(0, 152)}...` : product.description,
+    path: `/product/${product.id}`,
+    image: product.image,
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: product.name,
+        image: [product.image],
+        description: product.description,
+        sku: product.sku,
+        brand: { '@type': 'Brand', name: product.seller },
+        // Real customer reviews only — no fabricated ratings are ever sent here,
+        // regardless of what the fallback UI above shows on-screen.
+        ...(hasRealReviews ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: Number(avgRating.toFixed(1)),
+            reviewCount: totalReviews,
+          },
+        } : {}),
+        offers: {
+          '@type': 'Offer',
+          url: `${SITE_URL}/product/${product.id}`,
+          priceCurrency: 'GBP',
+          price: product.price.toFixed(2),
+          availability: product.stock > 0
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+          itemCondition: 'https://schema.org/NewCondition',
+          seller: { '@type': 'Organization', name: product.seller },
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
+          { '@type': 'ListItem', position: 2, name: product.category, item: `${SITE_URL}/category/${product.category}` },
+          { '@type': 'ListItem', position: 3, name: product.name, item: `${SITE_URL}/product/${product.id}` },
+        ],
+      },
+    ],
   });
 
   const { addToCart } = useCart();
@@ -142,7 +189,7 @@ export const ProductDetail = () => {
               <span className="text-black/35" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>{avgRating.toFixed(1)} ({totalReviews} reviews)</span>
             </div>
 
-            <p className="text-black mb-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '1.6rem', fontWeight: 300 }}>£${product.price.toFixed(2)}</p>
+            <p className="text-black mb-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '1.6rem', fontWeight: 300 }}>£{product.price.toFixed(2)}</p>
             <p className="text-black/30 mb-6" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>Free delivery on orders over £150</p>
 
             {/* Stock indicator */}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router';
 import { ChevronDown, MessageCircle, Truck, RotateCcw, CreditCard, Package } from 'lucide-react';
 import { Button } from '../components/Button';
-import { usePageMeta } from '../lib/usePageMeta';
+import { useSEO } from '../lib/useSEO';
 
 const faqs = [
   { q: 'How do I track my order?', a: 'Once your order is dispatched, you\'ll receive a tracking number by email. You can also track all orders from your account dashboard under "My Orders".' },
@@ -21,9 +21,10 @@ const topics = [
 ];
 
 export const Support = () => {
-  usePageMeta({
+  useSEO({
     title: 'Help Centre | Studio Marche',
     description: 'Track orders, manage returns, and get answers to common questions about shopping and selling on Studio Marche.',
+    path: '/support',
   });
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);

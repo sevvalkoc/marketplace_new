@@ -284,44 +284,22 @@ export const mockProducts = [
   },
 ];
 
-export const mockCategories = [
-  {
-    name: 'WOMEN',
-    slug: 'women',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&h=1000&fit=crop',
-    productCount: 156
-  },
-  {
-    name: 'MEN',
-    slug: 'men',
-    image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=800&h=1000&fit=crop',
-    productCount: 124
-  },
-  {
-    name: 'HOME',
-    slug: 'home',
-    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=1000&fit=crop',
-    productCount: 89
-  },
-  {
-    name: 'BEAUTY',
-    slug: 'beauty',
-    image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800&h=1000&fit=crop',
-    productCount: 67
-  },
-  {
-    name: 'OBJECTS',
-    slug: 'objects',
-    image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&h=1000&fit=crop',
-    productCount: 43
-  },
-  {
-    name: 'KIDS',
-    slug: 'kids',
-    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop',
-    productCount: 52
-  }
+const categoryDefinitions = [
+  { name: 'WOMEN', slug: 'women', image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&h=1000&fit=crop' },
+  { name: 'MEN', slug: 'men', image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=800&h=1000&fit=crop' },
+  { name: 'HOME', slug: 'home', image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=1000&fit=crop' },
+  { name: 'BEAUTY', slug: 'beauty', image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=800&h=1000&fit=crop' },
+  { name: 'OBJECTS', slug: 'objects', image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&h=1000&fit=crop' },
+  { name: 'KIDS', slug: 'kids', image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop' },
 ];
+
+// productCount is derived from the actual product catalogue rather than
+// hand-typed, so it can never drift out of sync with what a shopper (or a
+// search engine) actually finds when they open the category.
+export const mockCategories = categoryDefinitions.map(cat => ({
+  ...cat,
+  productCount: mockProducts.filter(p => p.category === cat.slug).length,
+}));
 
 export const mockSellers = [
   {
