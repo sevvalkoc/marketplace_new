@@ -1,10 +1,11 @@
 import { useParams, Link } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SlidersHorizontal, X, ArrowRight } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
 import { ComingSoon } from '../components/ComingSoon';
 import { mockProducts, mockCategories, mockEditArticles } from '../data/mockData';
 import { useSEO, SITE_URL } from '../lib/useSEO';
+import { trackViewItemList } from '../lib/analytics';
 
 const sortOptions = [
   { value: 'featured', label: 'Featured' },
@@ -102,6 +103,11 @@ export const CategoryPage = () => {
       (a.products || []).some(pid => products.some(p => p.id === pid))
     )
     .slice(0, 2);
+
+  useEffect(() => {
+    if (products.length > 0) trackViewItemList(hero.headline, products);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
 
   return (
     <div className="bg-white min-h-screen">

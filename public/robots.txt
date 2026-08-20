@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Private, transactional, and account-only paths — no public search value,
+# and excluded here to avoid wasting crawl budget on them. This is a
+# secondary control: every one of these routes also sets a client-rendered
+# <meta name="robots" content="noindex, follow"> so an already-discovered
+# URL can still be removed from the index even without recrawling it here.
+Disallow: /cart
+Disallow: /checkout
+Disallow: /wishlist
+Disallow: /search
+Disallow: /buyer/
+Disallow: /seller/login
+Disallow: /seller/dashboard
+Disallow: /seller/add-product
+Disallow: /seller/products
+Disallow: /seller/orders
+Disallow: /seller/inventory
+Disallow: /seller/payouts
+Disallow: /seller/settings
+Disallow: /seller/support
+
+Sitemap: https://studiomarche.co.uk/sitemap.xml

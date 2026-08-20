@@ -1,0 +1,32 @@
+# Netlify redirects/rewrites file — only relevant if Studio Marche deploys
+# here rather than on Vercel (see vercel.json for that equivalent). An
+# existing static file always takes precedence over these rules, so the
+# wildcards below never shadow the real prerendered pages under /seller/:slug,
+# /product/:id, /category/:slug, etc.
+
+# www -> non-www, permanent. Every internal link already uses the bare
+# domain; this stops the two hostnames being indexed as separate pages.
+https://www.studiomarche.co.uk/*  https://studiomarche.co.uk/:splat  301!
+
+# Dynamic, non-indexable app routes with no prerendered static file of
+# their own — served the CSR shell so client-side routing still works on a
+# direct load or refresh. Deliberately NOT a catch-all: every other path
+# either has a real prerendered file or gets Netlify's genuine 404.
+/cart                    /index.html  200
+/checkout                /index.html  200
+/wishlist                /index.html  200
+/search                  /index.html  200
+/buyer/*                 /index.html  200
+/seller/login            /index.html  200
+/seller/dashboard        /index.html  200
+/seller/add-product      /index.html  200
+/seller/products/*       /index.html  200
+/seller/orders           /index.html  200
+/seller/inventory        /index.html  200
+/seller/payouts          /index.html  200
+/seller/settings         /index.html  200
+/seller/support          /index.html  200
+
+# Everything else that doesn't match a real file: a genuine 404, served
+# from the prerendered NotFound page (see scripts/prerender.mjs).
+/*  /404.html  404

@@ -1,0 +1,27 @@
+{
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.studiomarche.co.uk" }],
+      "destination": "https://studiomarche.co.uk/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/cart", "destination": "/index.html" },
+    { "source": "/checkout", "destination": "/index.html" },
+    { "source": "/wishlist", "destination": "/index.html" },
+    { "source": "/search", "destination": "/index.html" },
+    { "source": "/buyer/:path*", "destination": "/index.html" },
+    { "source": "/seller/login", "destination": "/index.html" },
+    { "source": "/seller/dashboard", "destination": "/index.html" },
+    { "source": "/seller/add-product", "destination": "/index.html" },
+    { "source": "/seller/products/:path*", "destination": "/index.html" },
+    { "source": "/seller/orders", "destination": "/index.html" },
+    { "source": "/seller/inventory", "destination": "/index.html" },
+    { "source": "/seller/payouts", "destination": "/index.html" },
+    { "source": "/seller/settings", "destination": "/index.html" },
+    { "source": "/seller/support", "destination": "/index.html" }
+  ]
+}

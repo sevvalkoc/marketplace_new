@@ -3,6 +3,7 @@ import { Search, ShoppingBag, User, Menu, Heart, X, ArrowRight } from 'lucide-re
 import { useState, useRef, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { trackSearch } from '../lib/analytics';
 
 const megaMenuConfig: Record<string, {
   columns: { heading: string; links: { label: string; path: string }[] }[];
@@ -160,6 +161,7 @@ export const Header = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      trackSearch(searchQuery.trim());
       navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchOpen(false);
       setSearchQuery('');

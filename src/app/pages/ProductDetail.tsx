@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
 import { Heart, Truck, RotateCcw, Star, ChevronDown, Share2, Check, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '../components/Button';
@@ -7,6 +7,7 @@ import { mockProducts, mockSellers, mockReviews } from '../data/mockData';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useSEO, SITE_URL } from '../lib/useSEO';
+import { trackProductView, trackAddToCart } from '../lib/analytics';
 
 const clothingCategories = ['women', 'men', 'kids'];
 const sizes = { women: ['XS', 'S', 'M', 'L', 'XL'], men: ['S', 'M', 'L', 'XL', 'XXL'], kids: ['2Y', '4Y', '6Y', '8Y', '10Y'] };
@@ -93,9 +94,14 @@ export const ProductDetail = () => {
   const handleAddToBag = () => {
     if (isClothing && !selectedSize) return;
     addToCart({ id: product.id, name: product.name, price: product.price, seller: product.seller, sellerSlug: product.sellerSlug, image: product.image, quantity, size: selectedSize || undefined });
+    trackAddToCart({ id: product.id, name: product.name, price: product.price, seller: product.seller, quantity });
     setAddedToBag(true);
     setTimeout(() => setAddedToBag(false), 2200);
   };
+
+  useEffect(() => {
+    trackProductView({ id: product.id, name: product.name, price: product.price, seller: product.seller, category: product.category });
+  }, [product.id]);
 
   const accordions = [
     { id: 'details', label: 'PRODUCT DETAILS', content: product.description },

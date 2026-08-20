@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { Heart, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { trackAddToCart } from '../lib/analytics';
 
 interface ProductCardProps {
   id: string;
@@ -28,6 +29,7 @@ export const ProductCard = ({
   const handleAddToBag = (e: React.MouseEvent) => {
     e.preventDefault();
     addToCart({ id, name, price, seller, sellerSlug, image });
+    trackAddToCart({ id, name, price, seller });
   };
 
   const handleWishlist = (e: React.MouseEvent) => {

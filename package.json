@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "prerender": "node scripts/prerender.mjs",
+    "build:seo": "vite build && node scripts/prerender.mjs && node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -67,6 +69,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
+    "playwright": "^1.62.1",
     "tailwindcss": "4.1.12",
     "vite": "6.3.5"
   },

@@ -1,7 +1,19 @@
 import { Link } from 'react-router';
 import { Button } from '../components/Button';
+import { useSEO } from '../lib/useSEO';
 
 export const NotFound = () => {
+  // Client-side routing can't set a real HTTP 404 status itself — that's
+  // handled at the hosting layer (this page's prerendered output becomes
+  // dist/404.html, served with a genuine 404 status; see vercel.json /
+  // public/_redirects). noindex here is defense-in-depth for the same
+  // reason every other private/non-content route gets it.
+  useSEO({
+    title: 'Page Not Found | Studio Marche',
+    path: typeof window !== 'undefined' ? window.location.pathname : '/404',
+    noindex: true,
+  });
+
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-6">
       <div className="text-center max-w-lg">
