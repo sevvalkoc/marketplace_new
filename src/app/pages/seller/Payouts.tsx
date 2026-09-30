@@ -66,7 +66,7 @@ export const Payouts = () => {
         <div className="bg-culte-light-blue p-8">
           <p className="text-xs text-culte-navy/50 tracking-widest mb-2">COMMISSION RATE</p>
           <p className="font-cormorant text-4xl text-culte-navy">{(commissionRate * 100).toFixed(0)}%</p>
-          <p className="text-sm text-culte-black/60 mt-2">Studio Marche marketplace fee</p>
+          <p className="text-sm text-culte-black/60 mt-2">Studio Marché marketplace fee</p>
           <div className="mt-3 flex items-center gap-1 text-xs text-culte-orange">
             <ArrowUpRight className="w-3 h-3" /> You keep 88%
           </div>

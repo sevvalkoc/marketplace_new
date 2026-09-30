@@ -12,8 +12,8 @@ export const SearchResults = () => {
   // content — always noindex so they never compete with or duplicate the
   // category/brand/product pages they surface.
   useSEO({
-    title: query ? `"${query}" | Search | Studio Marche` : 'Search | Studio Marche',
-    description: 'Search Studio Marche for products, brands, and categories from independent makers.',
+    title: query ? `"${query}" | Search | Studio Marché` : 'Search | Studio Marché',
+    description: 'Search Studio Marché for products, brands, and categories from independent makers.',
     path: '/search',
     noindex: true,
   });

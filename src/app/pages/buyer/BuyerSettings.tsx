@@ -259,7 +259,7 @@ export const BuyerSettings = () => {
 
                 <div className="space-y-0 max-w-2xl border-2 border-culte-navy/10">
                   {([
-                    { key: 'newArrivals', label: 'New arrivals & drops', desc: 'Be the first to know when new products land on Studio Marche' },
+                    { key: 'newArrivals', label: 'New arrivals & drops', desc: 'Be the first to know when new products land on Studio Marché' },
                     { key: 'orderUpdates', label: 'Order updates & shipping', desc: 'Get notified when your orders are processed, shipped, and delivered.' },
                     { key: 'wishlistBack', label: 'Wishlist restocks', desc: 'Notify me when a wishlisted item comes back in stock.' },
                     { key: 'newsletter', label: 'The Edit newsletter', desc: 'Curated stories, new makers, and editorial content.' },

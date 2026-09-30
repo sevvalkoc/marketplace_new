@@ -5,15 +5,15 @@ import { useSEO } from '../lib/useSEO';
 
 export const About = () => {
   useSEO({
-    title: 'About Studio Marche | Independent Brands, Chosen Carefully',
-    description: 'Studio Marche is a curated marketplace built on the belief that less, chosen carefully, beats more chosen carelessly. Read our story.',
+    title: 'About Studio Marché | Independent Brands, Chosen Carefully',
+    description: 'Studio Marché is a curated marketplace built on the belief that less, chosen carefully, beats more chosen carelessly. Read our story.',
     path: '/about',
   });
 
   const values = [
     {
       heading: 'CURATION OVER QUANTITY',
-      body: 'We review every product and every brand personally. Nothing on Studio Marche is here by accident. We apply the same editorial eye to a £45 candle as to a £450 ceramic sculpture.'
+      body: 'We review every product and every brand personally. Nothing on Studio Marché is here by accident. We apply the same editorial eye to a £45 candle as to a £450 ceramic sculpture.'
     },
     {
       heading: 'INDEPENDENT BY DESIGN',
@@ -30,10 +30,10 @@ export const About = () => {
   ];
 
   const team = [
-    { name: 'Isabelle Morel', role: 'FOUNDER & CREATIVE DIRECTOR', location: 'Paris', image: 'https://images.unsplash.com/photo-1629511565591-a1d494ad6c58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400' },
-    { name: 'James Wu', role: 'CO-FOUNDER & TECH', location: 'London', image: 'https://images.unsplash.com/photo-1767175473698-859bc73e8e64?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400' },
-    { name: 'Amina Diallo', role: 'HEAD OF CURATION', location: 'New York', image: 'https://images.unsplash.com/photo-1738441388022-958455838394?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400' },
-    { name: 'Leo Ferrara', role: 'BRAND PARTNERSHIPS', location: 'Milan', image: 'https://images.unsplash.com/photo-1644258676710-ffb99d7d7a1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400' },
+    { name: 'Isabelle Morel', role: 'FOUNDER & CREATIVE DIRECTOR', location: 'Paris', image: 'https://images.unsplash.com/photo-1629511565591-a1d494ad6c58?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=400' },
+    { name: 'James Wu', role: 'CO-FOUNDER & TECH', location: 'London', image: 'https://images.unsplash.com/photo-1767175473698-859bc73e8e64?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=400' },
+    { name: 'Amina Diallo', role: 'HEAD OF CURATION', location: 'New York', image: 'https://images.unsplash.com/photo-1738441388022-958455838394?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=400' },
+    { name: 'Leo Ferrara', role: 'BRAND PARTNERSHIPS', location: 'Milan', image: 'https://images.unsplash.com/photo-1644258676710-ffb99d7d7a1b?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=400' },
   ];
 
   return (
@@ -41,21 +41,14 @@ export const About = () => {
       {/* Hero */}
       <div className="bg-culte-navy py-20 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6">
-          <p className="text-xs text-culte-orange tracking-[0.4em] mb-6">ABOUT STUDIO MARCHE</p>
-          <h1
-            className="font-cormorant text-white leading-none max-w-3xl"
-            style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}
-          >
-            WE DON'T SELL EVERYTHING.
-          </h1>
-          <h1
-            className="font-cormorant text-culte-orange leading-none mt-2 max-w-3xl"
-            style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}
-          >
-            WE SELL THE RIGHT THINGS.
+          <p className="text-xs text-culte-orange tracking-[0.4em] mb-6">ABOUT STUDIO MARCHÉ</p>
+          {/* One heading, two visual lines — a page gets a single H1. */}
+          <h1 className="font-cormorant leading-none max-w-3xl" style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}>
+            <span className="block text-white">WE DON'T SELL EVERYTHING.</span>
+            <span className="block text-culte-orange mt-2">WE SELL THE RIGHT THINGS.</span>
           </h1>
           <p className="text-white/60 leading-relaxed max-w-xl mt-10 text-lg">
-            Studio Marche is a curated marketplace built on the belief that less, chosen carefully, beats more chosen carelessly.
+            Studio Marché is a curated marketplace built on the belief that less, chosen carefully, beats more chosen carelessly.
           </p>
         </div>
       </div>
@@ -70,10 +63,10 @@ export const About = () => {
             </h2>
             <div className="space-y-4 text-culte-black/70 leading-relaxed">
               <p>
-                Studio Marche started after its founders spent years looking for a platform that took independent design as seriously as the people making it. Every marketplace felt like a warehouse. Every concept store felt too small to matter.
+                Studio Marché started after its founders spent years looking for a platform that took independent design as seriously as the people making it. Every marketplace felt like a warehouse. Every concept store felt too small to matter.
               </p>
               <p>
-                So we built something in between: the editorial eye of a concept store, with the reach of a proper marketplace. Studio Marche is where you find makers the wider market hasn't caught up to yet — and where those makers find buyers who actually understand what they're looking at.
+                So we built something in between: the editorial eye of a concept store, with the reach of a proper marketplace. Studio Marché is where you find makers the wider market hasn't caught up to yet — and where those makers find buyers who actually understand what they're looking at.
               </p>
               <p>
                 Every brand here was chosen by our curation team, not an algorithm. Every product has passed a quality review before it ever reaches you.
@@ -83,8 +76,8 @@ export const About = () => {
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden bg-culte-light-blue">
               <img
-                src="https://images.unsplash.com/photo-1698915583082-ae18c41f50c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"
-                alt="Studio Marche studio"
+                src="https://images.unsplash.com/photo-1698915583082-ae18c41f50c0?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080"
+                alt="Studio Marché studio"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -166,7 +159,7 @@ export const About = () => {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link to="/shop"><Button size="lg">SHOP THE COLLECTION</Button></Link>
-            <Link to="/seller/login"><Button variant="ghost" size="lg" className="border-white/30 text-white hover:bg-white hover:text-culte-navy">SELL ON STUDIO MARCHE</Button></Link>
+            <Link to="/seller/login"><Button variant="ghost" size="lg" className="border-white/30 text-white hover:bg-white hover:text-culte-navy">SELL ON STUDIO MARCHÉ</Button></Link>
           </div>
         </div>
       </div>

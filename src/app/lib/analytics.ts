@@ -1,7 +1,7 @@
 /**
  * Minimal GA4 wrapper, gated entirely behind VITE_GA4_MEASUREMENT_ID.
  *
- * Studio Marche has no GA4 property wired into the codebase at all today —
+ * Studio Marché has no GA4 property wired into the codebase at all today —
  * the audit's "wire up analytics events" item can't be completed with real
  * tracking IDs that don't exist yet. This module is the missing plumbing:
  * once a real measurement ID is added to .env (see .env.example), events

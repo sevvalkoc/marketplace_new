@@ -24,8 +24,8 @@ const sellers = ['Studio Clay', 'Essential Threads', 'Craft & Co.', 'Pure Botani
 
 export const Shop = () => {
   useSEO({
-    title: 'Shop All | Studio Marche',
-    description: 'Browse the full Studio Marche collection — considered pieces from independent brands across home, fashion, beauty, and more.',
+    title: 'Shop Independent Brands — Fashion, Home & Beauty | Studio Marché',
+    description: 'Browse the full Studio Marché collection — considered pieces from independent brands across home, fashion, beauty, and more.',
     path: '/shop',
   });
 
@@ -119,7 +119,7 @@ export const Shop = () => {
           <aside className={`lg:w-60 flex-shrink-0 ${filtersOpen ? 'block' : 'hidden lg:block'}`}>
             <div className="lg:sticky lg:top-28">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm text-culte-navy tracking-wider">REFINE</h3>
+                <h2 className="text-sm text-culte-navy tracking-wider">REFINE</h2>
                 {activeFilters.length > 0 && (
                   <button
                     onClick={() => { setSelectedCategories([]); setSelectedPrice(null); setSelectedSellers([]); }}
@@ -292,6 +292,7 @@ export const Shop = () => {
               </div>
             )}
 
+            <h2 className="sr-only">Products</h2>
             {/* Product Grid / List */}
             {filtered.length > 0 ? (
               viewMode === 'grid' ? (

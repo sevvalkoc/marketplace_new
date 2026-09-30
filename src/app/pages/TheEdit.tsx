@@ -1,19 +1,25 @@
 import { Link } from 'react-router';
 import { ArrowRight } from 'lucide-react';
 import { mockEditArticles, mockProducts } from '../data/mockData';
-import { useSEO, SITE_URL } from '../lib/useSEO';
+import { useSEO, SITE_URL, titleCase } from '../lib/useSEO';
 
 export const TheEdit = () => {
   useSEO({
-    title: 'The Edit — Studio Marche | Stories from Independent Makers',
-    description: 'Stories from the studios, fields, and workshops behind the brands on Studio Marche — interviews, essays, and product deep-dives.',
+    title: 'The Edit: Stories from Independent Makers | Studio Marché',
+    description: 'Stories from the studios, fields, and workshops behind the brands on Studio Marché — interviews, essays, and product deep-dives.',
     path: '/the-edit',
+    image: mockEditArticles[0]?.image,
     jsonLd: {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'The Edit',
       url: `${SITE_URL}/the-edit`,
-      isPartOf: { '@type': 'WebSite', name: 'Studio Marche', url: SITE_URL },
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+      hasPart: mockEditArticles.map((a) => ({
+        '@type': 'Article',
+        headline: titleCase(a.title),
+        url: `${SITE_URL}/the-edit/${a.id}`,
+      })),
     },
   });
 
@@ -25,7 +31,7 @@ export const TheEdit = () => {
       {/* Page header */}
       <div className="bg-culte-navy">
         <div className="max-w-[1400px] mx-auto px-6 py-16 lg:py-24">
-          <p className="text-xs text-culte-orange tracking-[0.4em] mb-4">STUDIO MARCHE EDITORIAL</p>
+          <p className="text-xs text-culte-orange tracking-[0.4em] mb-4">STUDIO MARCHÉ EDITORIAL</p>
           <div className="grid lg:grid-cols-2 gap-8 items-end">
             <h1 className="font-cormorant text-6xl lg:text-8xl text-white leading-none">THE EDIT.</h1>
             <p className="text-white/60 leading-relaxed max-w-lg lg:text-right">

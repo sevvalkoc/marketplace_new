@@ -7,8 +7,8 @@ import { useSEO } from '../lib/useSEO';
 
 export const NewArrivals = () => {
   useSEO({
-    title: 'New Arrivals | Studio Marche',
-    description: 'The latest additions to Studio Marche, hand-selected from independent makers across home, fashion, beauty, and more.',
+    title: 'New Arrivals from Independent Brands | Studio Marché',
+    description: 'The latest additions to Studio Marché, hand-selected from independent makers across home, fashion, beauty, and more.',
     path: '/new-arrivals',
   });
 
@@ -30,14 +30,14 @@ export const NewArrivals = () => {
               <h1 className="font-cormorant text-6xl lg:text-8xl text-white leading-none">NEW ARRIVALS</h1>
             </div>
             <p className="text-white/60 max-w-xs text-sm leading-relaxed">
-              The latest additions to Studio Marche — hand-selected from our global network of independent makers.
+              The latest additions to Studio Marché — hand-selected from our global network of independent makers.
             </p>
           </div>
 
           {/* Drop badge */}
           <div className="mt-10 inline-flex items-center gap-3 border border-white/20 px-6 py-3">
             <div className="w-2 h-2 bg-culte-orange rounded-full animate-pulse" />
-            <span className="text-xs text-white/80 tracking-widest">UPDATED WEEKLY — APRIL 2026</span>
+            <span className="text-xs text-white/80 tracking-widest">UPDATED WEEKLY</span>
           </div>
         </div>
       </div>
@@ -75,6 +75,7 @@ export const NewArrivals = () => {
 
       {/* Products */}
       <div className="max-w-[1400px] mx-auto px-6 py-10">
+        <h2 className="sr-only">Latest products</h2>
         <p className="text-culte-black/40 text-sm mb-8">{filtered.length} new products</p>
 
         {filtered.length > 0 ? (

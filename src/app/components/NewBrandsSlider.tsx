@@ -5,13 +5,13 @@ import { ArrowRight, ArrowLeft } from 'lucide-react';
 const brands = [
   {
     id: 1,
-    label: 'New to Studio Marche',
+    label: 'New to Studio Marché',
     name: 'Atelier\nMaison.',
     tagline: 'Parisian elegance refined for the modern wardrobe. Small-batch, handcrafted, never rushed.',
     origin: 'Paris, France',
     pieces: '24 pieces',
     cta: { label: 'Discover the Brand', path: '/shop' },
-    image: 'https://images.unsplash.com/photo-1637348318881-03b4c930a723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    image: 'https://images.unsplash.com/photo-1637348318881-03b4c930a723?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const brands = [
     origin: 'Copenhagen, Denmark',
     pieces: '18 pieces',
     cta: { label: 'See the Collection', path: '/category/home' },
-    image: 'https://images.unsplash.com/photo-1545042707-e54ee93c94f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    image: 'https://images.unsplash.com/photo-1545042707-e54ee93c94f5?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080',
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const brands = [
     origin: 'Milan, Italy',
     pieces: '31 pieces',
     cta: { label: 'Explore the Edit', path: '/shop' },
-    image: 'https://images.unsplash.com/photo-1766934587214-86e21b3ae093?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    image: 'https://images.unsplash.com/photo-1766934587214-86e21b3ae093?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080',
   },
 ];
 

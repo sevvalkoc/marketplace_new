@@ -38,7 +38,7 @@ export const Footer = () => {
     {
       heading: 'Company',
       links: [
-        { label: 'About Studio Marche', path: '/about' },
+        { label: 'About Studio Marché', path: '/about' },
         { label: 'Our Values', path: '/about' },
         { label: 'Support', path: '/support' },
         { label: 'Shipping & Returns', path: '/support' },
@@ -126,7 +126,7 @@ export const Footer = () => {
               className="font-cormorant text-white block mb-5 hover:text-white/50 transition-colors"
               style={{ fontSize: '2.2rem', fontWeight: 400, letterSpacing: '0.12em', textTransform: 'uppercase' }}
             >
-              Studio Marche
+              Studio Marché
             </Link>
             <p
               className="text-white/35 leading-relaxed mb-8 max-w-xs"
@@ -177,7 +177,7 @@ export const Footer = () => {
             className="text-white/20"
             style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}
           >
-            © 2026 Studio Marche. All rights reserved.
+            © 2026 Studio Marché. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-6">
             {['Privacy', 'Terms', 'Cookies', 'Accessibility'].map(l => (

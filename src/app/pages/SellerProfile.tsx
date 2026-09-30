@@ -5,18 +5,26 @@ import { ProductCard } from '../components/ProductCard';
 import { ComingSoon } from '../components/ComingSoon';
 import { mockSellers, mockProducts } from '../data/mockData';
 import { useShopifyProducts } from '../lib/shopify';
-import { useSEO, SITE_URL } from '../lib/useSEO';
+import { useSEO, SITE_URL, summarise } from '../lib/useSEO';
+import { NotFound } from './NotFound';
 
+type Seller = (typeof mockSellers)[number];
+
+// An unknown brand slug is a real 404, never a copy of another brand's page.
 export const SellerProfile = () => {
   const { slug } = useParams();
-  const seller = mockSellers.find(s => s.slug === slug) || mockSellers[0];
+  const seller = mockSellers.find(s => s.slug === slug);
+  return seller ? <SellerProfileView key={seller.slug} seller={seller} /> : <NotFound />;
+};
+
+const SellerProfileView = ({ seller }: { seller: Seller }) => {
 
   const manualProducts = mockProducts.filter(p => p.sellerSlug === seller.slug);
   const realProductCount = manualProducts.length;
 
   useSEO({
-    title: `${seller.name} | Independent Brand | Studio Marche`,
-    description: seller.bio.length > 155 ? `${seller.bio.slice(0, 152)}...` : seller.bio,
+    title: `${seller.name} — Independent Brand from ${seller.location.split(',')[0]} | Studio Marché`,
+    description: summarise(seller.bio),
     path: `/seller/${seller.slug}`,
     image: seller.image,
     jsonLd: [
@@ -56,7 +64,9 @@ export const SellerProfile = () => {
       <div className="relative h-72 md:h-96 overflow-hidden bg-culte-light-blue">
         <img
           src={seller.coverImage}
-          alt={seller.name}
+          alt=""
+          loading="eager"
+          {...{ fetchpriority: 'high' }}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-culte-navy/60 to-transparent" />
@@ -64,10 +74,10 @@ export const SellerProfile = () => {
         {/* Back link */}
         <div className="absolute top-6 left-6">
           <Link
-            to="/shop"
+            to="/brands"
             className="flex items-center gap-2 text-white text-xs tracking-widest hover:text-culte-orange transition-colors bg-white/10 backdrop-blur-sm px-4 py-2"
           >
-            <ArrowLeft className="w-3 h-3" /> BACK TO SHOP
+            <ArrowLeft className="w-3 h-3" /> ALL BRANDS
           </Link>
         </div>
 
@@ -141,7 +151,7 @@ export const SellerProfile = () => {
                   <p>✦ Ships worldwide from {seller.location}</p>
                   <p>✦ {realProductCount} curated products</p>
                   <p>✦ {seller.rating} star rating from {seller.reviewCount}+ buyers</p>
-                  <p>✦ Verified Studio Marche maker since 2023</p>
+                  <p>✦ Verified Studio Marché maker since 2023</p>
                 </div>
               </div>
             </div>
@@ -185,7 +195,7 @@ export const SellerProfile = () => {
             ) : (
               <ComingSoon
                 title="This edit is being prepared behind the scenes."
-                description={`${seller.name} has just joined Studio Marche. Their first pieces are being reviewed by our curation team and will appear here shortly.`}
+                description={`${seller.name} has just joined Studio Marché. Their first pieces are being reviewed by our curation team and will appear here shortly.`}
                 secondaryAction={{ label: 'Discover Other Makers', path: '/shop' }}
                 size="inline"
               />

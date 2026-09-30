@@ -2,27 +2,20 @@ import { useParams, Link } from 'react-router';
 import { ArrowLeft, ArrowRight, Clock, Calendar } from 'lucide-react';
 import { mockEditArticles, mockProducts, mockCategories } from '../data/mockData';
 import { useCart } from '../context/CartContext';
-import { useSEO, SITE_URL } from '../lib/useSEO';
+import { useSEO, SITE_URL, titleCase } from '../lib/useSEO';
+import { toISODate } from '../lib/dates';
+import { NotFound } from './NotFound';
 
-const MONTHS: Record<string, string> = {
-  january: '01', february: '02', march: '03', april: '04', may: '05', june: '06',
-  july: '07', august: '08', september: '09', october: '10', november: '11', december: '12',
-};
+type Article = (typeof mockEditArticles)[number];
 
-/** Normalises the article's existing "Month YYYY" display date to ISO-8601 for
- * structured data. The data model only stores month + year, so the day is not
- * fabricated data — it is fixed at 01 as the earliest reasonable point in the
- * stated month, and no dateModified is emitted since nothing tracks that. */
-function toISODate(display: string): string | undefined {
-  const [monthName, year] = display.trim().split(/\s+/);
-  const month = MONTHS[monthName?.toLowerCase()];
-  if (!month || !year) return undefined;
-  return `${year}-${month}-01`;
-}
-
+// An unknown article id is a real 404, never a copy of another story.
 export const TheEditArticle = () => {
   const { id } = useParams();
-  const article = mockEditArticles.find(a => a.id === id) || mockEditArticles[0];
+  const article = mockEditArticles.find(a => a.id === id);
+  return article ? <TheEditArticleView key={article.id} article={article} /> : <NotFound />;
+};
+
+const TheEditArticleView = ({ article }: { article: Article }) => {
   const others = mockEditArticles.filter(a => a.id !== article.id).slice(0, 3);
   const featuredProducts = (article.products || [])
     .map(pid => mockProducts.find(p => p.id === pid))
@@ -33,20 +26,23 @@ export const TheEditArticle = () => {
   const isoDate = toISODate(article.date);
 
   useSEO({
-    title: `${article.title} | The Edit — Studio Marche`,
+    title: `${titleCase(article.title)} | The Edit | Studio Marché`,
     description: article.subtitle,
     path: `/the-edit/${article.id}`,
     image: article.image,
+    type: 'article',
     jsonLd: [
       {
         '@context': 'https://schema.org',
         '@type': 'Article',
-        headline: article.title,
+        headline: titleCase(article.title),
         description: article.subtitle,
+        articleSection: titleCase(article.category),
+        inLanguage: 'en-GB',
         image: [article.image],
         ...(isoDate ? { datePublished: isoDate } : {}),
-        author: { '@type': 'Organization', name: 'Studio Marche Editorial Team' },
-        publisher: { '@type': 'Organization', name: 'Studio Marche' },
+        author: { '@type': 'Organization', name: 'Studio Marché Editorial Team' },
+        publisher: { '@type': 'Organization', '@id': `${SITE_URL}/#organization`, name: 'Studio Marché', url: SITE_URL },
         mainEntityOfPage: `${SITE_URL}/the-edit/${article.id}`,
       },
       {
@@ -55,7 +51,7 @@ export const TheEditArticle = () => {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
           { '@type': 'ListItem', position: 2, name: 'The Edit', item: SITE_URL + '/the-edit' },
-          { '@type': 'ListItem', position: 3, name: article.title, item: `${SITE_URL}/the-edit/${article.id}` },
+          { '@type': 'ListItem', position: 3, name: titleCase(article.title), item: `${SITE_URL}/the-edit/${article.id}` },
         ],
       },
     ],
@@ -69,7 +65,9 @@ export const TheEditArticle = () => {
       <div className="relative h-[60vh] min-h-[400px] overflow-hidden bg-culte-navy">
         <img
           src={article.image}
-          alt={article.title}
+          alt=""
+          loading="eager"
+          {...{ fetchpriority: 'high' }}
           className="w-full h-full object-cover opacity-50"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-culte-navy/80 via-culte-navy/40 to-transparent" />
@@ -88,7 +86,7 @@ export const TheEditArticle = () => {
         <div className="absolute bottom-0 left-0 right-0 max-w-[900px] mx-auto px-6 pb-12">
           <div className="flex items-center gap-4 mb-4">
             <span className="font-valibuk text-xs text-culte-orange tracking-widest">{article.category}</span>
-            <span className="text-white/40 text-xs flex items-center gap-1.5"><Calendar className="w-3 h-3" />{article.date}</span>
+            <span className="text-white/40 text-xs flex items-center gap-1.5"><Calendar className="w-3 h-3" />{isoDate ? <time dateTime={isoDate.slice(0, 7)}>{article.date}</time> : article.date}</span>
             <span className="text-white/40 text-xs flex items-center gap-1.5"><Clock className="w-3 h-3" />{article.readTime}</span>
           </div>
           <h1
@@ -124,9 +122,9 @@ export const TheEditArticle = () => {
         {/* Pull quote */}
         <div className="my-16 py-12 px-8 bg-culte-light-blue text-center">
           <p className="font-valibuk text-2xl md:text-3xl text-culte-navy leading-tight max-w-lg mx-auto">
-            "THIS IS THE CRAFT THAT STUDIO MARCHE WAS BUILT FOR."
+            "THIS IS THE CRAFT THAT STUDIO MARCHÉ WAS BUILT FOR."
           </p>
-          <p className="text-xs text-culte-black/40 font-valibuk tracking-widest mt-6">— STUDIO MARCHE EDITORIAL TEAM</p>
+          <p className="text-xs text-culte-black/40 font-valibuk tracking-widest mt-6">— STUDIO MARCHÉ EDITORIAL TEAM</p>
         </div>
 
         {/* Continued body (if more than 3 paragraphs) */}

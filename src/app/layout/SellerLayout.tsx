@@ -42,7 +42,7 @@ export const SellerLayout = () => {
               {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
             <Link to="/" className="font-cormorant text-2xl text-white hover:text-culte-orange transition-colors">
-              Studio Marche
+              Studio Marché
             </Link>
             <div className="hidden md:flex items-center gap-2">
               <span className="text-white/20">/</span>
@@ -94,7 +94,7 @@ export const SellerLayout = () => {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 overflow-hidden bg-culte-light-blue flex-shrink-0">
                 <img
-                  src="https://images.unsplash.com/photo-1766802981816-732b1679a6eb?w=100&h=100&fit=crop"
+                  src="https://images.unsplash.com/photo-1766802981816-732b1679a6eb?auto=format&q=80&w=100&h=100&fit=crop"
                   alt="Studio Clay"
                   className="w-full h-full object-cover"
                 />

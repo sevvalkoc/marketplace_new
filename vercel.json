@@ -1,27 +1,111 @@
 {
+  "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.studiomarche.co.uk" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.studiomarche.co.uk"
+        }
+      ],
       "destination": "https://studiomarche.co.uk/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/category/home-living",
+      "destination": "/category/home",
       "permanent": true
     }
   ],
   "rewrites": [
-    { "source": "/cart", "destination": "/index.html" },
-    { "source": "/checkout", "destination": "/index.html" },
-    { "source": "/wishlist", "destination": "/index.html" },
-    { "source": "/search", "destination": "/index.html" },
-    { "source": "/buyer/:path*", "destination": "/index.html" },
-    { "source": "/seller/login", "destination": "/index.html" },
-    { "source": "/seller/dashboard", "destination": "/index.html" },
-    { "source": "/seller/add-product", "destination": "/index.html" },
-    { "source": "/seller/products/:path*", "destination": "/index.html" },
-    { "source": "/seller/orders", "destination": "/index.html" },
-    { "source": "/seller/inventory", "destination": "/index.html" },
-    { "source": "/seller/payouts", "destination": "/index.html" },
-    { "source": "/seller/settings", "destination": "/index.html" },
-    { "source": "/seller/support", "destination": "/index.html" }
+    {
+      "source": "/cart",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/checkout",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/wishlist",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/search",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/buyer/:path*",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/login",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/dashboard",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/add-product",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/products/:path*",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/products",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/orders",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/inventory",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/payouts",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/settings",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/seller/support",
+      "destination": "/app-shell.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/app-shell.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }

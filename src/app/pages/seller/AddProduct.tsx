@@ -22,8 +22,8 @@ export const AddProduct = () => {
   };
 
   const mockImages = [
-    'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=300&h=300&fit=crop',
-    'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=300&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=300&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&q=80&w=300&h=300&fit=crop',
   ];
 
   const addMockImage = () => {
@@ -171,7 +171,7 @@ export const AddProduct = () => {
             {form.price && (
               <div className="p-4 bg-culte-light-blue text-xs text-culte-navy space-y-1">
                 <p>Selling price: <strong>£{form.price}</strong></p>
-                <p>Studio Marche commission (12%): <strong>£{(parseFloat(form.price) * 0.12).toFixed(2)}</strong></p>
+                <p>Studio Marché commission (12%): <strong>£{(parseFloat(form.price) * 0.12).toFixed(2)}</strong></p>
                 <p className="text-culte-orange">Your payout: <strong>£{(parseFloat(form.price) * 0.88).toFixed(2)}</strong></p>
               </div>
             )}
@@ -222,7 +222,7 @@ export const AddProduct = () => {
                 </div>
                 <div>
                   <p className="text-xs text-culte-navy capitalize">{s}</p>
-                  <p className="text-xs text-culte-black/40">{s === 'draft' ? 'Not visible to buyers' : 'Visible on Studio Marche'}</p>
+                  <p className="text-xs text-culte-black/40">{s === 'draft' ? 'Not visible to buyers' : 'Visible on Studio Marché'}</p>
                 </div>
               </label>
             ))}

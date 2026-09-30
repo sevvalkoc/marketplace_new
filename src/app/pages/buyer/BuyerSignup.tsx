@@ -31,7 +31,7 @@ export const BuyerSignup = () => {
     <div className="min-h-screen bg-white grid lg:grid-cols-2">
       {/* Left: Brand panel */}
       <div className="hidden lg:flex flex-col bg-culte-light-blue p-16 relative overflow-hidden">
-        <Link to="/" className="font-cormorant text-4xl text-culte-navy">Studio Marche</Link>
+        <Link to="/" className="font-cormorant text-4xl text-culte-navy">Studio Marché</Link>
         <div className="flex-1 flex flex-col justify-center">
           <p className="text-xs text-culte-orange tracking-[0.4em] mb-6">JOIN US</p>
           <h2 className="font-cormorant text-5xl text-culte-navy leading-tight">
@@ -61,7 +61,7 @@ export const BuyerSignup = () => {
       {/* Right: Form */}
       <div className="flex flex-col justify-center px-6 md:px-16 lg:px-20 py-16">
         <div className="max-w-md w-full mx-auto">
-          <Link to="/" className="lg:hidden font-cormorant text-3xl text-culte-navy block mb-12">Studio Marche</Link>
+          <Link to="/" className="lg:hidden font-cormorant text-3xl text-culte-navy block mb-12">Studio Marché</Link>
 
           <p className="text-xs text-culte-orange tracking-[0.4em] mb-4">NEW ACCOUNT</p>
           <h1 className="font-cormorant text-4xl text-culte-navy mb-2">CREATE ACCOUNT</h1>

@@ -9,7 +9,7 @@ const faqs = [
   { q: 'What is your returns policy?', a: 'We offer free 30-day returns on all unworn, undamaged items in their original packaging. Simply start a return from your account or get in touch with our support team.' },
   { q: 'How long does delivery take?', a: 'Standard delivery takes 5–7 working days. Express delivery (2–3 working days) is available at checkout. Free standard delivery on all orders over £150.' },
   { q: 'Can I change or cancel my order?', a: 'Orders can be changed or cancelled within 2 hours of placing them. After that, you\'ll need to wait for delivery and start a return.' },
-  { q: 'Are products authentic?', a: 'Every brand on Studio Marche is personally reviewed by our curation team. We only work with genuine independent makers and brands.' },
+  { q: 'Are products authentic?', a: 'Every brand on Studio Marché is personally reviewed by our curation team. We only work with genuine independent makers and brands.' },
   { q: 'How do I become a seller?', a: 'You can apply through our seller portal. Our curation team reviews every application within 5 working days, looking for quality, originality, and craft.' },
 ];
 
@@ -22,8 +22,8 @@ const topics = [
 
 export const Support = () => {
   useSEO({
-    title: 'Help Centre | Studio Marche',
-    description: 'Track orders, manage returns, and get answers to common questions about shopping and selling on Studio Marche.',
+    title: 'Help Centre | Studio Marché',
+    description: 'Track orders, manage returns, and get answers to common questions about shopping and selling on Studio Marché.',
     path: '/support',
   });
 
@@ -51,6 +51,7 @@ export const Support = () => {
 
       {/* Topic grid */}
       <div className="max-w-[1400px] mx-auto px-6 py-12">
+        <h2 className="sr-only">Help topics</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {topics.map((topic) => {
             const Icon = topic.icon;

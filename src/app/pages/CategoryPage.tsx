@@ -5,6 +5,7 @@ import { ProductCard } from '../components/ProductCard';
 import { ComingSoon } from '../components/ComingSoon';
 import { mockProducts, mockCategories, mockEditArticles } from '../data/mockData';
 import { useSEO, SITE_URL } from '../lib/useSEO';
+import { NotFound } from './NotFound';
 import { trackViewItemList } from '../lib/analytics';
 
 const sortOptions = [
@@ -14,71 +15,100 @@ const sortOptions = [
   { value: 'price-desc', label: 'Price: High to Low' },
 ];
 
-const categoryHeroes: Record<string, { headline: string; sub: string; image: string }> = {
+const categoryHeroes: Record<string, { headline: string; sub: string; image: string; seoTitle: string; metaDescription: string; intro: string }> = {
   women: {
     headline: 'WOMEN',
     sub: 'Curated wardrobe essentials and statement pieces from the world\'s finest independent labels.',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&q=80&w=1400&h=600&fit=crop',
+    seoTitle: 'Womenswear from Independent Labels',
+    metaDescription: 'Womenswear from independent labels — organic cotton, bias-cut silk, cashmere and leather, made in small batches in Copenhagen, Paris, Oslo and Florence.',
+    intro: 'Clothing and accessories from independent labels in Copenhagen, Paris, Oslo and Florence: organic cotton shirts, bias-cut silk, cashmere knitwear and leather made to be kept. Every piece is chosen for how it is made, not how quickly it sells.',
   },
   men: {
     headline: 'MEN',
     sub: 'Considered clothing and accessories for the design-conscious man.',
-    image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=1400&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&q=80&w=1400&h=600&fit=crop',
+    seoTitle: 'Menswear from Independent Brands',
+    metaDescription: 'Menswear and accessories from independent makers: merino knitwear from Oslo and full-grain leather goods handmade in Florence. Fewer, better things.',
+    intro: 'Menswear and accessories from independent makers — merino knitwear from a small studio in Oslo, and full-grain leather goods cut and stitched by hand in Florence. Fewer, better things, built to last.',
   },
   home: {
     headline: 'HOME',
     sub: 'Objects that define space. Ceramics, textiles, lighting, and more from independent makers.',
-    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&q=80&w=1400&h=600&fit=crop',
+    seoTitle: 'Homeware from Independent Makers',
+    metaDescription: 'Homeware from independent studios — wheel-thrown ceramics, stoneware, handwoven blankets and sculptural lighting, made slowly and in small numbers.',
+    intro: 'Homeware from independent studios: wheel-thrown ceramics, stoneware, handwoven wool blankets and sculptural lighting. Pieces made slowly, in small numbers, by the people whose names are on them.',
   },
   beauty: {
     headline: 'BEAUTY',
     sub: 'Clean, botanical, and effective skincare from independent formulators.',
-    image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=1400&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&q=80&w=1400&h=600&fit=crop',
+    seoTitle: 'Independent Skincare & Beauty Brands',
+    metaDescription: 'Botanical skincare from independent formulators — serums and body oils made without synthetic fragrance or parabens. A small, carefully chosen edit.',
+    intro: 'Skincare from independent formulators who work with botanical ingredients and leave out synthetic fragrance and parabens. A small edit, chosen for what is in the bottle rather than what is on the label.',
   },
   objects: {
     headline: 'OBJECTS',
     sub: 'Sculptural, functional, and beautiful — objects that earn their place.',
-    image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=1400&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&q=80&w=1400&h=600&fit=crop',
+    seoTitle: 'Design Objects from Independent Makers',
+    metaDescription: 'Design objects from independent makers — hand-poured candles, ceramic bookends and handwoven bowls. Useful, beautiful, and ideally both.',
+    intro: 'Candles, bookends, bowls and the other things that make a room feel lived in, from independent makers. Each one useful, or beautiful — ideally both.',
   },
   kids: {
     headline: 'KIDS',
     sub: 'Thoughtful, durable, and beautiful things for little ones.',
-    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1400&h=600&fit=crop',
+    image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&q=80&w=1400&h=600&fit=crop',
+    seoTitle: 'Kidswear & Toys from Independent Brands',
+    metaDescription: "Children's clothing and toys from independent brands — organic knitwear, merino beanies and solid wood building blocks made to be handed down.",
+    intro: 'Clothes and toys for children from independent brands: organic knitwear, merino hats and solid wood building blocks, made without shortcuts and meant to be handed down.',
   },
 };
 
+// Only the known categories exist; anything else under /category/ is a real
+// 404 rather than an indexable, empty "coming soon" page for any word typed
+// into the URL.
 export const CategoryPage = () => {
   const { category } = useParams<{ category: string }>();
+  return category && categoryHeroes[category]
+    ? <CategoryView key={category} category={category} />
+    : <NotFound />;
+};
+
+const CategoryView = ({ category }: { category: string }) => {
   const [sort, setSort] = useState('featured');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [priceFilter, setPriceFilter] = useState<string | null>(null);
 
-  const hero = categoryHeroes[category || ''] || {
-    headline: (category || '').toUpperCase(),
-    sub: 'Curated products from independent makers.',
-    image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&h=600&fit=crop',
-  };
+  const hero = categoryHeroes[category];
+  const label = hero.headline.charAt(0) + hero.headline.slice(1).toLowerCase();
 
   let products = mockProducts.filter(p => p.category === category);
   const isEmpty = products.length === 0;
 
   useSEO({
-    title: `${hero.headline} | Independent Brands | Studio Marche`,
-    description: hero.sub,
+    title: `${hero.seoTitle} | Studio Marché`,
+    description: hero.metaDescription,
     path: `/category/${category}`,
     image: hero.image,
+    // A category with nothing in it yet is a placeholder, not a page worth
+    // ranking — keep it out of the index until it has products.
+    noindex: isEmpty,
     jsonLd: [
       {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
-          { '@type': 'ListItem', position: 2, name: hero.headline, item: `${SITE_URL}/category/${category}` },
+          { '@type': 'ListItem', position: 2, name: 'Shop', item: SITE_URL + '/shop' },
+          { '@type': 'ListItem', position: 3, name: label, item: `${SITE_URL}/category/${category}` },
         ],
       },
       ...(products.length > 0 ? [{
         '@context': 'https://schema.org',
         '@type': 'ItemList',
+        name: `${label} — ${hero.seoTitle}`,
         itemListElement: products.map((p, i) => ({
           '@type': 'ListItem',
           position: i + 1,
@@ -113,15 +143,17 @@ export const CategoryPage = () => {
     <div className="bg-white min-h-screen">
       {/* Hero */}
       <div className="relative h-64 md:h-80 overflow-hidden">
-        <img src={hero.image} alt={hero.headline} className="w-full h-full object-cover" />
+        <img src={hero.image} alt="" width={1400} height={600} loading="eager" {...{ fetchpriority: 'high' }} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-culte-navy/80 to-culte-navy/30" />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-[1400px] mx-auto px-6 w-full">
-            <div className="flex items-center gap-2 text-white/50 text-xs tracking-widest mb-4">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-white/50 text-xs tracking-widest mb-4">
               <Link to="/" className="hover:text-white transition-colors">HOME</Link>
               <span>/</span>
-              <span className="text-white">{hero.headline}</span>
-            </div>
+              <Link to="/shop" className="hover:text-white transition-colors">SHOP</Link>
+              <span>/</span>
+              <span className="text-white" aria-current="page">{hero.headline}</span>
+            </nav>
             <h1 className="font-cormorant text-5xl md:text-7xl text-white leading-none">{hero.headline}</h1>
             <p className="text-white/70 mt-3 max-w-xl text-sm">{hero.sub}</p>
           </div>
@@ -185,6 +217,9 @@ export const CategoryPage = () => {
             )}
           </div>
         )}
+
+        <p className="text-culte-black/60 max-w-2xl mb-10 leading-relaxed text-sm">{hero.intro}</p>
+        <h2 className="sr-only">{label} products</h2>
 
         {/* Product grid or Coming Soon */}
         {isEmpty ? (

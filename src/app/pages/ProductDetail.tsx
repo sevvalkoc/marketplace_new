@@ -3,41 +3,55 @@ import { useParams, Link } from 'react-router';
 import { Heart, Truck, RotateCcw, Star, ChevronDown, Share2, Check, ArrowLeft, ArrowRight } from 'lucide-react';
 import { Button } from '../components/Button';
 import { ProductCard } from '../components/ProductCard';
-import { mockProducts, mockSellers, mockReviews } from '../data/mockData';
+import { mockProducts, mockSellers, mockReviews, mockCategories } from '../data/mockData';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
-import { useSEO, SITE_URL } from '../lib/useSEO';
+import { useSEO, SITE_URL, summarise } from '../lib/useSEO';
+import { NotFound } from './NotFound';
 import { trackProductView, trackAddToCart } from '../lib/analytics';
 
 const clothingCategories = ['women', 'men', 'kids'];
 const sizes = { women: ['XS', 'S', 'M', 'L', 'XL'], men: ['S', 'M', 'L', 'XL', 'XXL'], kids: ['2Y', '4Y', '6Y', '8Y', '10Y'] };
 
+type Product = (typeof mockProducts)[number];
+
+// An unknown id renders the real 404 page rather than silently showing some
+// other product under this URL — that would be a soft 404 with a
+// self-referencing canonical, and an unlimited supply of duplicate pages.
 export const ProductDetail = () => {
   const { id } = useParams();
-  const product = mockProducts.find(p => p.id === id) || mockProducts[0];
+  const product = mockProducts.find(p => p.id === id);
+  return product ? <ProductDetailView key={product.id} product={product} /> : <NotFound />;
+};
+
+const ProductDetailView = ({ product }: { product: Product }) => {
   const seller = mockSellers.find(s => s.slug === product.sellerSlug) || mockSellers[0];
   const related = mockProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
   const reviews = mockReviews.filter(r => r.productId === product.id);
-  // Only products with real, product-specific entries in mockReviews have a
-  // genuine rating. Everything else falls back to a generic on-screen "4.8
-  // (42 reviews)" placeholder for display — that figure is not tied to this
-  // product and must never be reported to search engines as if it were.
+  // Ratings are shown — on screen and in structured data — only when this
+  // product has its own reviews. Products without any say so plainly rather
+  // than borrowing a placeholder score: invented ratings mislead shoppers
+  // (and fake reviews are unlawful in the UK under the DMCC Act 2024).
   const hasRealReviews = reviews.length > 0;
   const avgRating = hasRealReviews
     ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length
-    : 4.8;
-  const totalReviews = hasRealReviews ? reviews.length : 42;
+    : 0;
+  const totalReviews = reviews.length;
+  const categoryName = mockCategories.find(c => c.slug === product.category)?.name ?? product.category;
+  const categoryLabel = categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase();
 
   useSEO({
-    title: `${product.name} by ${product.seller} | Studio Marche`,
-    description: product.description.length > 155 ? `${product.description.slice(0, 152)}...` : product.description,
+    title: `${product.name} by ${product.seller} | Studio Marché`,
+    description: summarise(product.description),
     path: `/product/${product.id}`,
     image: product.image,
+    type: 'product',
     jsonLd: [
       {
         '@context': 'https://schema.org',
         '@type': 'Product',
         name: product.name,
+        url: `${SITE_URL}/product/${product.id}`,
         image: [product.image],
         description: product.description,
         sku: product.sku,
@@ -68,7 +82,7 @@ export const ProductDetail = () => {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL + '/' },
-          { '@type': 'ListItem', position: 2, name: product.category, item: `${SITE_URL}/category/${product.category}` },
+          { '@type': 'ListItem', position: 2, name: categoryLabel, item: `${SITE_URL}/category/${product.category}` },
           { '@type': 'ListItem', position: 3, name: product.name, item: `${SITE_URL}/product/${product.id}` },
         ],
       },
@@ -113,13 +127,13 @@ export const ProductDetail = () => {
     <div className="bg-white min-h-screen">
       <div className="max-w-[1400px] mx-auto px-6 py-8">
         {/* ── Breadcrumb ── */}
-        <div className="flex items-center gap-2 mb-10" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.68rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(0,0,0,0.3)' }}>
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-10" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.68rem', letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(0,0,0,0.3)' }}>
           <Link to="/" className="hover:text-black transition-colors">Home</Link>
           <span>/</span>
-          <Link to={`/category/${product.category}`} className="hover:text-black transition-colors">{product.category}</Link>
+          <Link to={`/category/${product.category}`} className="hover:text-black transition-colors">{categoryLabel}</Link>
           <span>/</span>
           <span className="text-black">{product.name}</span>
-        </div>
+        </nav>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 mb-24">
           {/* Image Gallery */}
@@ -134,7 +148,7 @@ export const ProductDetail = () => {
                     selectedImage === i ? 'border-black' : 'border-transparent hover:border-black/20'
                   }`}
                 >
-                  <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-cover" />
+                  <img src={img} alt={`${product.name} — view ${i + 1}`} width={80} height={80} loading="lazy" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
@@ -144,7 +158,11 @@ export const ProductDetail = () => {
               <div className="relative aspect-[4/5] overflow-hidden bg-[#F4F4F2]">
                 <img
                   src={images[selectedImage]}
-                  alt={product.name}
+                  alt={`${product.name} by ${product.seller}`}
+                  width={800}
+                  height={1000}
+                  loading="eager"
+                  {...{ fetchpriority: 'high' }}
                   className="w-full h-full object-cover"
                 />
                 {product.isNew && (
@@ -163,7 +181,7 @@ export const ProductDetail = () => {
                       selectedImage === i ? 'border-black' : 'border-black/10'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" width={80} height={80} loading="lazy" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -185,7 +203,8 @@ export const ProductDetail = () => {
 
             <h1 className="font-cormorant text-black mb-3" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, lineHeight: '1.1' }}>{product.name}</h1>
 
-            {/* Rating */}
+            {/* Rating — only when this product has reviews of its own */}
+            {hasRealReviews && (
             <div className="flex items-center gap-2 mb-5">
               <div className="flex">
                 {[1,2,3,4,5].map(i => (
@@ -194,6 +213,7 @@ export const ProductDetail = () => {
               </div>
               <span className="text-black/35" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>{avgRating.toFixed(1)} ({totalReviews} reviews)</span>
             </div>
+            )}
 
             <p className="text-black mb-1" style={{ fontFamily: 'Inter, sans-serif', fontSize: '1.6rem', fontWeight: 300 }}>£{product.price.toFixed(2)}</p>
             <p className="text-black/30 mb-6" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>Free delivery on orders over £150</p>
@@ -343,6 +363,7 @@ export const ProductDetail = () => {
               <p className="text-black/30 mb-3 uppercase" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.62rem', letterSpacing: '0.3em' }}>Customer Reviews</p>
               <h2 className="font-cormorant text-black" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 300 }}>What People Say</h2>
             </div>
+            {hasRealReviews && (
             <div className="text-right">
               <div className="flex items-center gap-1 justify-end mb-1">
                 {[1,2,3,4,5].map(i => (
@@ -350,17 +371,21 @@ export const ProductDetail = () => {
                 ))}
               </div>
               <p className="text-black font-cormorant" style={{ fontSize: '1.8rem', fontWeight: 300 }}>{avgRating.toFixed(1)}</p>
-              <p className="text-black/35" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>{totalReviews} verified reviews</p>
+              <p className="text-black/35" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.75rem' }}>{totalReviews} {totalReviews === 1 ? 'review' : 'reviews'}</p>
             </div>
+            )}
           </div>
 
           {/* Horizontal slider container */}
           {(() => {
-            const allReviews = reviews.length > 0 ? reviews : [
-              { id: 'r1', author: 'Sophie R.', location: 'London, UK', date: 'March 2026', rating: 5, title: 'Exceptional quality', body: 'Exactly as described. The craftsmanship is outstanding and it arrived beautifully packaged. Would order again without hesitation.', verified: true },
-              { id: 'r2', author: 'Marcus T.', location: 'New York, USA', date: 'February 2026', rating: 5, title: 'Worth every penny', body: 'I was initially hesitant given the price but this is genuine quality. You can feel it immediately. Highly recommended.', verified: true },
-              { id: 'r3', author: 'Elisa M.', location: 'Milan, Italy', date: 'January 2026', rating: 5, title: 'Beautifully made', body: 'The material quality exceeded expectations. Arrived quickly, packaged with care. This is what independent brands should aspire to.', verified: false },
-            ];
+            const allReviews = reviews;
+            if (allReviews.length === 0) {
+              return (
+                <p className="text-black/45" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', fontWeight: 300 }}>
+                  No reviews yet for this piece.
+                </p>
+              );
+            }
             const visibleCount = 2;
             const maxSlide = Math.max(0, allReviews.length - visibleCount);
             const clampedSlide = Math.min(reviewSlide, maxSlide);
@@ -389,7 +414,7 @@ export const ProductDetail = () => {
                           )}
                         </div>
                         {/* Title */}
-                        <h4 className="font-cormorant text-black mb-3" style={{ fontSize: '1.1rem', fontWeight: 400 }}>{review.title}</h4>
+                        <h3 className="font-cormorant text-black mb-3" style={{ fontSize: '1.1rem', fontWeight: 400 }}>{review.title}</h3>
                         {/* Body */}
                         <p className="text-black/45 leading-relaxed mb-6" style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.85rem', fontWeight: 300 }}>{review.body}</p>
                         {/* Author */}

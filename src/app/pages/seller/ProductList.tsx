@@ -5,11 +5,11 @@ import { Badge } from '../../components/Badge';
 import { Button } from '../../components/Button';
 
 const initialProducts = [
-  { id: '1', name: 'Minimalist Ceramic Vase', sku: 'HOME-001', price: 89.00, stock: 12, sold: 42, status: 'Published', image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=100&h=100&fit=crop', category: 'Home' },
-  { id: '9', name: 'Stoneware Dinner Set', sku: 'HOME-009', price: 320.00, stock: 6, sold: 18, status: 'Published', image: 'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?w=100&h=100&fit=crop', category: 'Home' },
-  { id: '7', name: 'Sculptural Table Lamp', sku: 'HOME-007', price: 220.00, stock: 2, sold: 12, status: 'Published', image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=100&h=100&fit=crop', category: 'Home' },
-  { id: '14', name: 'Obsidian Bookend Pair', sku: 'OBJ-014', price: 138.00, stock: 9, sold: 9, status: 'Published', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=100&h=100&fit=crop', category: 'Objects' },
-  { id: 'draft-1', name: 'New Glaze Experiment', sku: 'HOME-NEW', price: 95.00, stock: 0, sold: 0, status: 'Draft', image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=100&h=100&fit=crop', category: 'Home' },
+  { id: '1', name: 'Minimalist Ceramic Vase', sku: 'HOME-001', price: 89.00, stock: 12, sold: 42, status: 'Published', image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=100&h=100&fit=crop', category: 'Home' },
+  { id: '9', name: 'Stoneware Dinner Set', sku: 'HOME-009', price: 320.00, stock: 6, sold: 18, status: 'Published', image: 'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?auto=format&q=80&w=100&h=100&fit=crop', category: 'Home' },
+  { id: '7', name: 'Sculptural Table Lamp', sku: 'HOME-007', price: 220.00, stock: 2, sold: 12, status: 'Published', image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&q=80&w=100&h=100&fit=crop', category: 'Home' },
+  { id: '14', name: 'Obsidian Bookend Pair', sku: 'OBJ-014', price: 138.00, stock: 9, sold: 9, status: 'Published', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&q=80&w=100&h=100&fit=crop', category: 'Objects' },
+  { id: 'draft-1', name: 'New Glaze Experiment', sku: 'HOME-NEW', price: 95.00, stock: 0, sold: 0, status: 'Draft', image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&q=80&w=100&h=100&fit=crop', category: 'Home' },
 ];
 
 export const ProductList = () => {

@@ -34,9 +34,9 @@ export const SellerDashboard = () => {
   ];
 
   const topProducts = [
-    { name: 'Minimalist Ceramic Vase', sold: 42, revenue: 3738, image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=100&h=100&fit=crop' },
-    { name: 'Stoneware Dinner Set', sold: 18, revenue: 5760, image: 'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?w=100&h=100&fit=crop' },
-    { name: 'Sculptural Table Lamp', sold: 12, revenue: 2640, image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=100&h=100&fit=crop' },
+    { name: 'Minimalist Ceramic Vase', sold: 42, revenue: 3738, image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=100&h=100&fit=crop' },
+    { name: 'Stoneware Dinner Set', sold: 18, revenue: 5760, image: 'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?auto=format&q=80&w=100&h=100&fit=crop' },
+    { name: 'Sculptural Table Lamp', sold: 12, revenue: 2640, image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&q=80&w=100&h=100&fit=crop' },
   ];
 
   const statusConfig: Record<string, { bg: string; text: string }> = {

@@ -25,16 +25,16 @@ export const EditProduct = () => {
   });
 
   const [images, setImages] = useState<string[]>([
-    existingProduct?.image || 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=300&h=300&fit=crop',
+    existingProduct?.image || 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=300&h=300&fit=crop',
   ]);
   const [dragOver, setDragOver] = useState(false);
   const [saved, setSaved] = useState(false);
   const [unpublishConfirm, setUnpublishConfirm] = useState(false);
 
   const mockImages = [
-    'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=300&h=300&fit=crop',
-    'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=300&h=300&fit=crop',
-    'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?w=300&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=300&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&q=80&w=300&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?auto=format&q=80&w=300&h=300&fit=crop',
   ];
 
   const addMockImage = () => {
@@ -200,7 +200,7 @@ export const EditProduct = () => {
             {form.price && (
               <div className="p-4 bg-culte-light-blue text-xs text-culte-navy space-y-1">
                 <p>Selling price: <strong>£{parseFloat(form.price).toFixed(2)}</strong></p>
-                <p>Studio Marche commission (12%): <strong>£{(parseFloat(form.price) * 0.12).toFixed(2)}</strong></p>
+                <p>Studio Marché commission (12%): <strong>£{(parseFloat(form.price) * 0.12).toFixed(2)}</strong></p>
                 <p className="text-culte-orange">Your payout: <strong>£{(parseFloat(form.price) * 0.88).toFixed(2)}</strong></p>
               </div>
             )}
@@ -290,7 +290,7 @@ export const EditProduct = () => {
                 </div>
                 <div>
                   <p className="text-xs text-culte-navy capitalize">{s}</p>
-                  <p className="text-xs text-culte-black/40">{s === 'draft' ? 'Not visible to buyers' : 'Visible on Studio Marche'}</p>
+                  <p className="text-xs text-culte-black/40">{s === 'draft' ? 'Not visible to buyers' : 'Visible on Studio Marché'}</p>
                 </div>
               </label>
             ))}

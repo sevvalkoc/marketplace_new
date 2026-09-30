@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { Button } from '../components/Button';
 import { useSEO } from '../lib/useSEO';
 
@@ -8,9 +8,10 @@ export const NotFound = () => {
   // dist/404.html, served with a genuine 404 status; see vercel.json /
   // public/_redirects). noindex here is defense-in-depth for the same
   // reason every other private/non-content route gets it.
+  const { pathname } = useLocation();
   useSEO({
-    title: 'Page Not Found | Studio Marche',
-    path: typeof window !== 'undefined' ? window.location.pathname : '/404',
+    title: 'Page Not Found | Studio Marché',
+    path: pathname,
     noindex: true,
   });
 

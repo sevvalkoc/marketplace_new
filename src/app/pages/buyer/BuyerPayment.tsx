@@ -246,7 +246,7 @@ export const BuyerPayment = () => {
               <div>
                 <p className="text-xs text-culte-navy tracking-wider mb-1">PAYMENT SECURITY</p>
                 <p className="text-xs text-culte-black/60 leading-relaxed">
-                  All payment information is encrypted using industry-standard SSL technology. Studio Marche never stores your full card details — they are handled securely by our payment provider.
+                  All payment information is encrypted using industry-standard SSL technology. Studio Marché never stores your full card details — they are handled securely by our payment provider.
                 </p>
               </div>
             </div>

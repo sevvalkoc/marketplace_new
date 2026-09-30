@@ -1,6 +1,6 @@
-import { createBrowserRouter, Navigate } from 'react-router';
+import type { ComponentType } from 'react';
+import { Navigate, type RouteObject } from 'react-router';
 import { Layout } from './layout/Layout';
-import { SellerLayout } from './layout/SellerLayout';
 
 // Public pages
 import { Home } from './pages/Home';
@@ -16,34 +16,19 @@ import { About } from './pages/About';
 import { SearchResults } from './pages/SearchResults';
 import { Wishlist } from './pages/Wishlist';
 import { Cart } from './pages/Cart';
-import { Checkout } from './pages/Checkout';
 import { Support } from './pages/Support';
 import { NotFound } from './pages/NotFound';
 
-// Buyer pages
-import { BuyerLogin } from './pages/buyer/BuyerLogin';
-import { BuyerSignup } from './pages/buyer/BuyerSignup';
-import { BuyerAccount } from './pages/buyer/BuyerAccount';
-import { BuyerOrders } from './pages/buyer/BuyerOrders';
-import { BuyerAddresses } from './pages/buyer/BuyerAddresses';
-import { BuyerPayment } from './pages/buyer/BuyerPayment';
-import { BuyerSettings } from './pages/buyer/BuyerSettings';
-
-// Seller pages
-import { SellerLogin } from './pages/seller/SellerLogin';
-import { SellerDashboard } from './pages/seller/SellerDashboard';
-import { AddProduct } from './pages/seller/AddProduct';
-import { ProductList } from './pages/seller/ProductList';
-import { EditProduct } from './pages/seller/EditProduct';
-import { SellerOrders } from './pages/seller/SellerOrders';
-import { Inventory } from './pages/seller/Inventory';
-import { Payouts } from './pages/seller/Payouts';
-import { SellerSettings } from './pages/seller/SellerSettings';
-import { SellerSupport } from './pages/seller/SellerSupport';
+// Buyer, seller and checkout screens are account-only, never prerendered or
+// indexed, and carry the heaviest dependencies (charts, forms). They load on
+// demand via react-router's `lazy` so shoppers and crawlers landing on the
+// public storefront don't download them up front.
+const page = <T extends Record<string, ComponentType>>(load: () => Promise<T>, name: keyof T) =>
+  () => load().then((m) => ({ Component: m[name] }));
 
 const HomeLivingRedirect = () => Navigate({ to: '/category/home', replace: true });
 
-export const router = createBrowserRouter([
+export const routes: RouteObject[] = [
   {
     path: '/',
     Component: Layout,
@@ -55,7 +40,7 @@ export const router = createBrowserRouter([
       // Legacy slug seen in earlier navigation/indexed URLs — client-side
       // redirect so any inbound links or cached search results still land
       // on the one canonical Home & Living address. Hosting config (see
-      // vercel.json / netlify.toml) also 301s this at the server level,
+      // vercel.json / public/_redirects) also 301s this at the server level,
       // which is what search engines actually consolidate signals on.
       { path: 'category/home-living', Component: HomeLivingRedirect },
       { path: 'product/:id', Component: ProductDetail },
@@ -67,39 +52,39 @@ export const router = createBrowserRouter([
       { path: 'search', Component: SearchResults },
       { path: 'wishlist', Component: Wishlist },
       { path: 'cart', Component: Cart },
-      { path: 'checkout', Component: Checkout },
+      { path: 'checkout', lazy: page(() => import('./pages/Checkout'), 'Checkout') },
       { path: 'support', Component: Support },
 
       // Buyer routes
-      { path: 'buyer/login', Component: BuyerLogin },
-      { path: 'buyer/signup', Component: BuyerSignup },
-      { path: 'buyer/account', Component: BuyerAccount },
-      { path: 'buyer/orders', Component: BuyerOrders },
-      { path: 'buyer/addresses', Component: BuyerAddresses },
-      { path: 'buyer/payment', Component: BuyerPayment },
-      { path: 'buyer/settings', Component: BuyerSettings },
+      { path: 'buyer/login', lazy: page(() => import('./pages/buyer/BuyerLogin'), 'BuyerLogin') },
+      { path: 'buyer/signup', lazy: page(() => import('./pages/buyer/BuyerSignup'), 'BuyerSignup') },
+      { path: 'buyer/account', lazy: page(() => import('./pages/buyer/BuyerAccount'), 'BuyerAccount') },
+      { path: 'buyer/orders', lazy: page(() => import('./pages/buyer/BuyerOrders'), 'BuyerOrders') },
+      { path: 'buyer/addresses', lazy: page(() => import('./pages/buyer/BuyerAddresses'), 'BuyerAddresses') },
+      { path: 'buyer/payment', lazy: page(() => import('./pages/buyer/BuyerPayment'), 'BuyerPayment') },
+      { path: 'buyer/settings', lazy: page(() => import('./pages/buyer/BuyerSettings'), 'BuyerSettings') },
     ]
   },
   {
     path: '/seller',
     children: [
-      { path: 'login', Component: SellerLogin },
+      { path: 'login', lazy: page(() => import('./pages/seller/SellerLogin'), 'SellerLogin') },
       {
         path: '',
-        Component: SellerLayout,
+        lazy: page(() => import('./layout/SellerLayout'), 'SellerLayout'),
         children: [
-          { path: 'dashboard', Component: SellerDashboard },
-          { path: 'add-product', Component: AddProduct },
-          { path: 'products', Component: ProductList },
-          { path: 'products/:id/edit', Component: EditProduct },
-          { path: 'orders', Component: SellerOrders },
-          { path: 'inventory', Component: Inventory },
-          { path: 'payouts', Component: Payouts },
-          { path: 'settings', Component: SellerSettings },
-          { path: 'support', Component: SellerSupport },
+          { path: 'dashboard', lazy: page(() => import('./pages/seller/SellerDashboard'), 'SellerDashboard') },
+          { path: 'add-product', lazy: page(() => import('./pages/seller/AddProduct'), 'AddProduct') },
+          { path: 'products', lazy: page(() => import('./pages/seller/ProductList'), 'ProductList') },
+          { path: 'products/:id/edit', lazy: page(() => import('./pages/seller/EditProduct'), 'EditProduct') },
+          { path: 'orders', lazy: page(() => import('./pages/seller/SellerOrders'), 'SellerOrders') },
+          { path: 'inventory', lazy: page(() => import('./pages/seller/Inventory'), 'Inventory') },
+          { path: 'payouts', lazy: page(() => import('./pages/seller/Payouts'), 'Payouts') },
+          { path: 'settings', lazy: page(() => import('./pages/seller/SellerSettings'), 'SellerSettings') },
+          { path: 'support', lazy: page(() => import('./pages/seller/SellerSupport'), 'SellerSupport') },
         ]
       }
     ]
   },
   { path: '*', Component: NotFound }
-]);
+];

@@ -130,7 +130,7 @@ export const SellerSettings = () => {
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 overflow-hidden bg-culte-light-blue flex-shrink-0">
                   <img
-                    src="https://images.unsplash.com/photo-1766802981816-732b1679a6eb?w=100&h=100&fit=crop"
+                    src="https://images.unsplash.com/photo-1766802981816-732b1679a6eb?auto=format&q=80&w=100&h=100&fit=crop"
                     alt="Store logo"
                     className="w-full h-full object-cover"
                   />
@@ -220,7 +220,7 @@ export const SellerSettings = () => {
           <div className="mt-8 p-5 bg-culte-light-blue flex items-center justify-between">
             <div>
               <p className="font-valibuk text-xs text-culte-navy tracking-wider mb-1">STORE PREVIEW</p>
-              <p className="text-xs text-culte-black/60">See how your store looks to buyers on Studio Marche</p>
+              <p className="text-xs text-culte-black/60">See how your store looks to buyers on Studio Marché</p>
             </div>
             <a
               href="/seller/studio-clay"
@@ -303,7 +303,7 @@ export const SellerSettings = () => {
             <div>
               <p className="font-valibuk text-xs text-culte-navy tracking-wider mb-1">PAYOUT SCHEDULE</p>
               <p className="text-xs text-culte-black/60 leading-relaxed">
-                Payouts are processed on the 1st of each month for all completed orders from the prior month. Funds arrive within 2–3 working days. Studio Marche retains a 12% commission on each sale.
+                Payouts are processed on the 1st of each month for all completed orders from the prior month. Funds arrive within 2–3 working days. Studio Marché retains a 12% commission on each sale.
               </p>
             </div>
           </div>
@@ -388,7 +388,7 @@ export const SellerSettings = () => {
                 items: [
                   { key: 'payoutProcessed', label: 'Payout processed', desc: 'Confirm when your monthly payout has been sent.' },
                   { key: 'weeklySummary', label: 'Weekly sales summary', desc: 'Receive a weekly report of your sales and performance.' },
-                  { key: 'applicationUpdates', label: 'Studio Marche platform updates', desc: 'News about new features and improvements to the seller portal.' },
+                  { key: 'applicationUpdates', label: 'Studio Marché platform updates', desc: 'News about new features and improvements to the seller portal.' },
                 ] as const
               }
             ].map(section => (

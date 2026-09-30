@@ -1,32 +1,35 @@
-# Netlify redirects/rewrites file — only relevant if Studio Marche deploys
+# Netlify redirects/rewrites file — only relevant if Studio Marché deploys
 # here rather than on Vercel (see vercel.json for that equivalent). An
-# existing static file always takes precedence over these rules, so the
-# wildcards below never shadow the real prerendered pages under /seller/:slug,
-# /product/:id, /category/:slug, etc.
+# existing static file always takes precedence over the non-forced rules
+# below, so they never shadow the prerendered pages (/product/1 is served
+# from product/1.html, /seller/studio-clay from seller/studio-clay.html…).
 
-# www -> non-www, permanent. Every internal link already uses the bare
-# domain; this stops the two hostnames being indexed as separate pages.
+# www -> non-www, permanent. Every internal link and canonical uses the
+# bare domain; this stops the two hostnames being indexed as separate pages.
 https://www.studiomarche.co.uk/*  https://studiomarche.co.uk/:splat  301!
 
-# Dynamic, non-indexable app routes with no prerendered static file of
-# their own — served the CSR shell so client-side routing still works on a
-# direct load or refresh. Deliberately NOT a catch-all: every other path
-# either has a real prerendered file or gets Netlify's genuine 404.
-/cart                    /index.html  200
-/checkout                /index.html  200
-/wishlist                /index.html  200
-/search                  /index.html  200
-/buyer/*                 /index.html  200
-/seller/login            /index.html  200
-/seller/dashboard        /index.html  200
-/seller/add-product      /index.html  200
-/seller/products/*       /index.html  200
-/seller/orders           /index.html  200
-/seller/inventory        /index.html  200
-/seller/payouts          /index.html  200
-/seller/settings         /index.html  200
-/seller/support          /index.html  200
+# Legacy category slug -> its one canonical address.
+/category/home-living    /category/home  301!
+
+# Account-only app routes with no prerendered page of their own: served the
+# noindexed app shell so client-side routing still works on a direct load
+# or refresh. Deliberately NOT a catch-all.
+/cart                    /app-shell.html  200
+/checkout                /app-shell.html  200
+/wishlist                /app-shell.html  200
+/search                  /app-shell.html  200
+/buyer/*                 /app-shell.html  200
+/seller/login            /app-shell.html  200
+/seller/dashboard        /app-shell.html  200
+/seller/add-product      /app-shell.html  200
+/seller/products         /app-shell.html  200
+/seller/products/*       /app-shell.html  200
+/seller/orders           /app-shell.html  200
+/seller/inventory        /app-shell.html  200
+/seller/payouts          /app-shell.html  200
+/seller/settings         /app-shell.html  200
+/seller/support          /app-shell.html  200
 
 # Everything else that doesn't match a real file: a genuine 404, served
-# from the prerendered NotFound page (see scripts/prerender.mjs).
+# from the prerendered NotFound page.
 /*  /404.html  404

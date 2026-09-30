@@ -6,7 +6,7 @@ import { useCart } from '../context/CartContext';
 import { useSEO } from '../lib/useSEO';
 
 export const Checkout = () => {
-  useSEO({ title: 'Checkout | Studio Marche', path: '/checkout', noindex: true });
+  useSEO({ title: 'Checkout | Studio Marché', path: '/checkout', noindex: true });
   const { items, subtotal, clearCart } = useCart();
   const navigate = useNavigate();
 
@@ -93,7 +93,7 @@ export const Checkout = () => {
       {/* Checkout Header */}
       <div className="border-b-2 border-culte-navy bg-white sticky top-0 z-40">
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="font-cormorant text-3xl text-culte-navy">Studio Marche</Link>
+          <Link to="/" className="font-cormorant text-3xl text-culte-navy">Studio Marché</Link>
           <div className="flex items-center gap-2 text-xs text-culte-black/40">
             <Lock className="w-3.5 h-3.5" /> SECURE CHECKOUT
           </div>

@@ -11,8 +11,8 @@ import { useSEO } from '../lib/useSEO';
 
 export const Home = () => {
   useSEO({
-    title: 'Studio Marche | A Curated Marketplace for Independent Brands',
-    description: 'Discover thoughtfully made products from independent brands and emerging designers. Every piece on Studio Marche is chosen by hand, never by algorithm.',
+    title: 'Studio Marché | A Curated Marketplace for Independent Brands',
+    description: 'Discover thoughtfully made products from independent brands and emerging designers. Every piece on Studio Marché is chosen by hand, never by algorithm.',
     path: '/',
   });
 
@@ -27,7 +27,7 @@ export const Home = () => {
 
   return (
     <div className="bg-white">
-      <h1 className="sr-only">Studio Marche — A Curated Marketplace for Independent Brands</h1>
+      <h1 className="sr-only">Studio Marché — A Curated Marketplace for Independent Brands</h1>
 
       {/* ─── 1. HERO SLIDER ─── */}
       <HeroSlider />
@@ -105,8 +105,9 @@ export const Home = () => {
             {/* Image */}
             <div className="relative overflow-hidden min-h-[35vw] lg:min-h-0 order-2 lg:order-1">
               <img
-                src="https://images.unsplash.com/photo-1769547673654-c67427ac94ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"
-                alt="New Arrivals"
+                src="https://images.unsplash.com/photo-1769547673654-c67427ac94ff?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080"
+                alt=""
+                loading="lazy"
                 className="w-full h-full object-cover absolute inset-0"
               />
             </div>
@@ -289,7 +290,7 @@ export const Home = () => {
               </h2>
             </div>
             <Link
-              to="/shop"
+              to="/brands"
               className="hidden md:flex items-center gap-2 text-black/50 hover:text-black transition-colors"
               style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', letterSpacing: '0.14em', textTransform: 'uppercase' }}
             >
@@ -341,14 +342,15 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* ─── 10. SELL ON STUDIO MARCHE ─── */}
+      {/* ─── 10. SELL ON STUDIO MARCHÉ ─── */}
       <section className="py-0">
         <div className="grid lg:grid-cols-2" style={{ minHeight: '340px' }}>
           {/* Image */}
           <div className="relative overflow-hidden min-h-[35vw] lg:min-h-0">
             <img
-              src="https://images.unsplash.com/photo-1764298493231-59ae059cdc7e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"
-              alt="Sell on Studio Marche"
+              src="https://images.unsplash.com/photo-1764298493231-59ae059cdc7e?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080"
+              alt=""
+              loading="lazy"
               className="w-full h-full object-cover absolute inset-0"
             />
             <div className="absolute inset-0 bg-black/20" />
@@ -374,7 +376,7 @@ export const Home = () => {
               className="text-white/45 mb-7 max-w-sm"
               style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.87rem', lineHeight: '1.7', fontWeight: 300 }}
             >
-              Every application to Studio Marche is read by our curation team. Quality, craft, and originality are the only criteria that matter.
+              Every application to Studio Marché is read by our curation team. Quality, craft, and originality are the only criteria that matter.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link

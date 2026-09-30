@@ -1,5 +1,5 @@
 /**
- * Canonical product & brand data model for Studio Marche.
+ * Canonical product & brand data model for Studio Marché.
  *
  * This is the shape every product on the site is normalised into,
  * regardless of where it came from — hand-entered mock data today,
@@ -18,7 +18,7 @@ export interface ProductImage {
 }
 
 export interface Product {
-  /** Internal Studio Marche product id (stable across re-syncs). */
+  /** Internal Studio Marché product id (stable across re-syncs). */
   id: string;
 
   /** Product title as shown to buyers. */
@@ -33,7 +33,7 @@ export interface Product {
   /** Original / "compare at" price, if the item is reduced. */
   originalPrice?: number;
 
-  /** ISO 4217 currency code. Studio Marche displays GBP by default. */
+  /** ISO 4217 currency code. Studio Marché displays GBP by default. */
   currency: string;
 
   /** One or more images; the first is used as the primary product image. */
@@ -45,10 +45,10 @@ export interface Product {
   /** Display name of the brand / vendor selling this product. */
   seller: string;
 
-  /** URL-safe slug for the seller's profile page on Studio Marche. */
+  /** URL-safe slug for the seller's profile page on Studio Marché. */
   sellerSlug: string;
 
-  /** Studio Marche category slug, e.g. "home", "beauty", "objects". */
+  /** Studio Marché category slug, e.g. "home", "beauty", "objects". */
   category: string;
 
   /** Free-form tags, used for search and filtering. */
@@ -84,7 +84,7 @@ export interface Product {
 
 /**
  * Configuration for a single partner brand's Shopify store.
- * One entry per brand that wants their catalogue pulled into Studio Marche.
+ * One entry per brand that wants their catalogue pulled into Studio Marché.
  */
 export interface ShopifyBrandSource {
   /** Must match an existing seller slug in the marketplace. */

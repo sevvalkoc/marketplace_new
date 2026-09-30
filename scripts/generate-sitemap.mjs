@@ -1,31 +1,39 @@
-// Writes dist/sitemap.xml from the same route manifest the prerender script
-// uses, so the sitemap only ever lists canonical, indexable, 200-status
-// URLs — the exact set that gets a real static HTML snapshot. No redirected,
-// 404, noindex, duplicate, or tracking-parameter URLs are ever included, and
-// no lastmod is fabricated: this app's data model carries no genuine
-// last-updated timestamp for any product/category/seller/article, so the
-// field is simply omitted rather than filled with a fake date.
+// Writes dist/sitemap.xml from the same route list the prerender uses
+// (getIndexableRoutes in src/entry-server.tsx), so the sitemap only ever
+// lists canonical, indexable, 200-status URLs — the exact set that gets a
+// real static HTML page. No redirected, 404, noindex, duplicate or
+// parameter URLs are ever included.
+//
+// <lastmod> is emitted only where the data holds a genuine date (Edit
+// articles). Products, brands and categories carry no last-updated
+// timestamp yet, and a made-up or build-time date would teach Google to
+// ignore lastmod for the whole site. <priority>/<changefreq> are omitted:
+// Google ignores both.
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { getIndexableRoutes } from './routes.mjs';
-import { SITE_URL } from './seo-constants.mjs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const distDir = path.resolve(__dirname, '..', 'dist');
+// Production builds of React/react-router for the render.
+process.env.NODE_ENV ??= 'production';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const SITE_URL = 'https://studiomarche.co.uk';
 
 async function main() {
-  const routes = await getIndexableRoutes();
+  const { getIndexableRoutes } = await import(
+    pathToFileURL(path.join(root, 'dist-server', 'entry-server.js')).href
+  );
+  const routes = getIndexableRoutes();
 
   const urls = routes
-    .map(
-      (r) => `  <url>\n    <loc>${SITE_URL}${r.path}</loc>\n    <priority>${r.priority}</priority>\n  </url>`
-    )
+    .map((r) => {
+      const lastmod = r.lastmod ? `\n    <lastmod>${r.lastmod}</lastmod>` : '';
+      return `  <url>\n    <loc>${SITE_URL}${r.path}</loc>${lastmod}\n  </url>`;
+    })
     .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
-
-  await writeFile(path.join(distDir, 'sitemap.xml'), xml, 'utf-8');
+  await writeFile(path.join(root, 'dist', 'sitemap.xml'), xml, 'utf-8');
   console.log(`Wrote sitemap.xml with ${routes.length} URLs.`);
 }
 

@@ -10,7 +10,7 @@ import type { Product, ShopifyBrandSource, ShopifyFetchResult } from '../../type
  * browser is a supported pattern and is what this file does. It is NOT
  * appropriate to put an Admin API token here, ever — Admin tokens can read
  * and write orders, customers, and payouts, and must only be used from a
- * server you control. If Studio Marche grows a backend (Next.js API route,
+ * server you control. If Studio Marché grows a backend (Next.js API route,
  * a small Node service, etc.), move this fetch behind that server instead
  * and keep this file's normalisation logic, which is backend-agnostic.
  *
@@ -87,7 +87,7 @@ interface StorefrontProductNode {
 }
 
 /**
- * Converts one Shopify Storefront product node into Studio Marche's
+ * Converts one Shopify Storefront product node into Studio Marché's
  * canonical Product shape. Kept separate from the fetch call so it can
  * be unit-tested without network access.
  */

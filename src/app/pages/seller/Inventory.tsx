@@ -4,10 +4,10 @@ import { AlertCircle, Package, BarChart3, Edit, ArrowUpRight } from 'lucide-reac
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const inventoryItems = [
-  { id: '1', product: 'Minimalist Ceramic Vase', sku: 'HOME-001', stock: 12, sold: 42, price: 89, status: 'In Stock', image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=80&h=80&fit=crop' },
-  { id: '2', product: 'Stoneware Dinner Set', sku: 'HOME-009', stock: 6, sold: 18, price: 320, status: 'In Stock', image: 'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?w=80&h=80&fit=crop' },
-  { id: '3', product: 'Sculptural Table Lamp', sku: 'HOME-007', stock: 2, sold: 12, price: 220, status: 'Low Stock', image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=80&h=80&fit=crop' },
-  { id: '4', product: 'Obsidian Bookend Pair', sku: 'OBJ-014', stock: 0, sold: 9, price: 138, status: 'Out of Stock', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=80&h=80&fit=crop' },
+  { id: '1', product: 'Minimalist Ceramic Vase', sku: 'HOME-001', stock: 12, sold: 42, price: 89, status: 'In Stock', image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=80&h=80&fit=crop' },
+  { id: '2', product: 'Stoneware Dinner Set', sku: 'HOME-009', stock: 6, sold: 18, price: 320, status: 'In Stock', image: 'https://images.unsplash.com/photo-1603199506016-5a1f76dc2f18?auto=format&q=80&w=80&h=80&fit=crop' },
+  { id: '3', product: 'Sculptural Table Lamp', sku: 'HOME-007', stock: 2, sold: 12, price: 220, status: 'Low Stock', image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&q=80&w=80&h=80&fit=crop' },
+  { id: '4', product: 'Obsidian Bookend Pair', sku: 'OBJ-014', stock: 0, sold: 9, price: 138, status: 'Out of Stock', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&q=80&w=80&h=80&fit=crop' },
 ];
 
 const chartData = inventoryItems.map(i => ({

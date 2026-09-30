@@ -30,7 +30,7 @@ const initialItems: CartItem[] = [
     price: 89.00,
     seller: 'Studio Clay',
     sellerSlug: 'studio-clay',
-    image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&q=80&w=400&h=500&fit=crop',
     quantity: 1,
   },
   {
@@ -39,7 +39,7 @@ const initialItems: CartItem[] = [
     price: 285.00,
     seller: 'Craft & Co.',
     sellerSlug: 'craft-co',
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&q=80&w=400&h=500&fit=crop',
     quantity: 1,
   },
 ];

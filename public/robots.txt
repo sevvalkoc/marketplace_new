@@ -2,10 +2,11 @@ User-agent: *
 Allow: /
 
 # Private, transactional, and account-only paths — no public search value,
-# and excluded here to avoid wasting crawl budget on them. This is a
-# secondary control: every one of these routes also sets a client-rendered
-# <meta name="robots" content="noindex, follow"> so an already-discovered
-# URL can still be removed from the index even without recrawling it here.
+# and excluded here to avoid wasting crawl budget on them. Each one is also
+# served a noindexed app shell (meta robots + X-Robots-Tag) as a backstop.
+# Note: a crawler can't read that noindex while a path is disallowed here —
+# if one of these URLs ever needs removing from Google's index, temporarily
+# lift its Disallow line so the noindex can be seen.
 Disallow: /cart
 Disallow: /checkout
 Disallow: /wishlist

@@ -29,7 +29,7 @@ const megaMenuConfig: Record<string, {
     featured: {
       label: 'NEW SEASON',
       title: 'SS26 Women',
-      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=700&fit=crop',
+      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&q=80&w=600&h=700&fit=crop',
       path: '/category/women'
     }
   },
@@ -52,7 +52,7 @@ const megaMenuConfig: Record<string, {
     featured: {
       label: 'JUST IN',
       title: 'SS26 Men',
-      image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=600&h=700&fit=crop',
+      image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&q=80&w=600&h=700&fit=crop',
       path: '/category/men'
     }
   },
@@ -75,7 +75,7 @@ const megaMenuConfig: Record<string, {
     featured: {
       label: 'CURATED',
       title: 'Home Objects',
-      image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=700&fit=crop',
+      image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&q=80&w=600&h=700&fit=crop',
       path: '/category/home'
     }
   },
@@ -97,7 +97,7 @@ const megaMenuConfig: Record<string, {
     featured: {
       label: 'CLEAN BEAUTY',
       title: 'Botanical Edit',
-      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=600&h=700&fit=crop',
+      image: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&q=80&w=600&h=700&fit=crop',
       path: '/category/beauty'
     }
   }
@@ -227,7 +227,7 @@ export const Header = () => {
                 textTransform: 'uppercase',
               }}
             >
-              Studio Marche
+              Studio Marché
             </Link>
 
             {/* Desktop Navigation */}
@@ -413,7 +413,7 @@ export const Header = () => {
               style={{ fontSize: '1.6rem', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase' }}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Studio Marche
+              Studio Marché
             </Link>
             <button onClick={() => setMobileMenuOpen(false)} className="text-black">
               <X className="w-5 h-5" />
@@ -466,7 +466,7 @@ export const Header = () => {
                 className="block bg-black text-white text-center py-3.5 hover:bg-black/80 transition-colors"
                 style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
               >
-                Sell on Studio Marche
+                Sell on Studio Marché
               </Link>
             </div>
           </nav>

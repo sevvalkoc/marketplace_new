@@ -7,7 +7,7 @@ import { mockProducts } from '../data/mockData';
 import { useSEO } from '../lib/useSEO';
 
 export const Wishlist = () => {
-  useSEO({ title: 'Your Wishlist | Studio Marche', path: '/wishlist', noindex: true });
+  useSEO({ title: 'Your Wishlist | Studio Marché', path: '/wishlist', noindex: true });
   const { items, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
 

@@ -6,7 +6,7 @@ import { mockProducts } from '../data/mockData';
 import { useSEO } from '../lib/useSEO';
 
 export const Cart = () => {
-  useSEO({ title: 'Your Bag | Studio Marche', path: '/cart', noindex: true });
+  useSEO({ title: 'Your Bag | Studio Marché', path: '/cart', noindex: true });
   const { items, removeFromCart, updateQuantity, subtotal } = useCart();
 
   const shipping = subtotal >= 150 ? 0 : 12;

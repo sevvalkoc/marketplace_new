@@ -28,7 +28,7 @@ const initialItems: WishlistItem[] = [
     price: 220.00,
     seller: 'Light & Form',
     sellerSlug: 'light-form',
-    image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&q=80&w=400&h=500&fit=crop',
     isNew: true,
   },
   {
@@ -37,7 +37,7 @@ const initialItems: WishlistItem[] = [
     price: 248.00,
     seller: 'Atelier Rose',
     sellerSlug: 'atelier-rose',
-    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&q=80&w=400&h=500&fit=crop',
     isNew: true,
   },
   {
@@ -46,7 +46,7 @@ const initialItems: WishlistItem[] = [
     price: 68.00,
     seller: 'Pure Botanics',
     sellerSlug: 'pure-botanics',
-    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&q=80&w=400&h=500&fit=crop',
     isNew: true,
   },
 ];

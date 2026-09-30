@@ -7,7 +7,7 @@ const panels = [
     headline: 'Every Brand\nHas a Story.',
     subline: 'We work with makers who care how something is made, not just that it sells.',
     cta: { label: 'Explore the Studio', path: '/shop' },
-    image: 'https://images.unsplash.com/photo-1692116716561-953cc9a868b6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    image: 'https://images.unsplash.com/photo-1692116716561-953cc9a868b6?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080',
     imagePosition: 'center top',
   },
   {
@@ -16,7 +16,7 @@ const panels = [
     headline: 'Chosen,\nNot Just Sourced.',
     subline: 'Each new arrival is reviewed by hand before it earns a place here.',
     cta: { label: 'See What\'s New', path: '/new-arrivals' },
-    image: 'https://images.unsplash.com/photo-1664076458686-3449062080ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080',
+    image: 'https://images.unsplash.com/photo-1664076458686-3449062080ac?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080',
     imagePosition: 'center center',
   },
 ];
@@ -34,13 +34,14 @@ export const HeroSlider = () => {
             >
               <img
                 src={panel.image}
-                alt={panel.eyebrow}
+                alt=""
                 // Both panels sit in the viewport on load, but the first is
                 // the LCP candidate on most breakpoints — load it eagerly
                 // and flag it as high priority rather than leaving fetch
-                // priority to the browser's default guess.
+                // priority to the browser's default guess. Spelled lowercase:
+                // React 18 doesn't know the camelCase prop and silently drops it.
                 loading="eager"
-                fetchPriority={panel.id === 1 ? 'high' : 'auto'}
+                {...{ fetchpriority: panel.id === 1 ? 'high' : 'auto' }}
                 decoding="async"
                 className="w-full h-full object-cover"
                 style={{ objectPosition: panel.imagePosition }}

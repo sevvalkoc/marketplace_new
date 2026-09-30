@@ -5,9 +5,10 @@ import { useSEO, SITE_URL } from '../lib/useSEO';
 
 export const BrandDirectory = () => {
   useSEO({
-    title: 'Brand Directory | Independent Makers | Studio Marche',
-    description: 'Every independent brand and maker on Studio Marche, in one place — from Portland ceramics studios to Florentine leather ateliers.',
+    title: 'Discover Independent Brands | Brand Directory | Studio Marché',
+    description: 'Every independent brand and maker on Studio Marché, in one place — from Portland ceramics studios to Florentine leather ateliers.',
     path: '/brands',
+    image: mockSellers[0]?.coverImage,
     jsonLd: [
       {
         '@context': 'https://schema.org',
@@ -45,7 +46,7 @@ export const BrandDirectory = () => {
           <h1 className="font-cormorant text-6xl lg:text-8xl text-white leading-none">BRANDS.</h1>
           <p className="text-white/60 leading-relaxed max-w-lg mt-6">
             Independent brands and makers, chosen by hand. Each one reviewed by our curation
-            team before their first piece ever reaches Studio Marche.
+            team before their first piece ever reaches Studio Marché.
           </p>
         </div>
       </div>

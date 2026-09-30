@@ -35,19 +35,19 @@ export const SellerLogin = () => {
       {/* Left: Brand Editorial Panel */}
       <div className="relative hidden lg:block bg-culte-navy overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1765371513189-44702dcee4be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"
-          alt="Sell on Studio Marche"
+          src="https://images.unsplash.com/photo-1765371513189-44702dcee4be?auto=format&q=80&crop=entropy&cs=tinysrgb&fit=max&w=1080"
+          alt="Sell on Studio Marché"
           className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
         <div className="relative z-10 flex flex-col h-full p-16">
-          <Link to="/" className="font-valibuk text-4xl text-white">Studio Marche</Link>
+          <Link to="/" className="font-valibuk text-4xl text-white">Studio Marché</Link>
           <div className="flex-1 flex flex-col justify-center">
             <p className="font-valibuk text-xs text-culte-orange tracking-[0.4em] mb-6">SELLER PORTAL</p>
             <h2 className="font-valibuk text-5xl text-white leading-tight">
               YOUR BRAND.<br />OUR PLATFORM.
             </h2>
             <p className="mt-6 text-white/60 leading-relaxed max-w-sm">
-              Reach a curated audience of design-conscious buyers. Manage your products, track orders, and grow your brand through Studio Marche's editorial platform.
+              Reach a curated audience of design-conscious buyers. Manage your products, track orders, and grow your brand through Studio Marché's editorial platform.
             </p>
             <div className="mt-12 grid grid-cols-2 gap-4">
               {[
@@ -73,7 +73,7 @@ export const SellerLogin = () => {
       {/* Right: Form */}
       <div className="flex flex-col justify-center px-6 md:px-16 lg:px-20 py-16">
         <div className="max-w-md w-full mx-auto">
-          <Link to="/" className="lg:hidden font-valibuk text-3xl text-culte-navy block mb-12">Studio Marche</Link>
+          <Link to="/" className="lg:hidden font-valibuk text-3xl text-culte-navy block mb-12">Studio Marché</Link>
 
           {/* Mode Toggle */}
           <div className="flex border-2 border-culte-navy/15 mb-8">
